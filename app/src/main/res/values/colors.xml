@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Primary Colors -->
+
+    <!-- Secondary Colors -->
+
+    <!-- Status Bar  Color  -->>
+
+    <!-- Extra Color  -->>
+
+
+    <color name="black">#FF000000</color>
+    <color name="black50">#80000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FE6900</color>
+    <color name="blue">#FE6900</color>
+    <color name="yellow">#FFC300</color>
+    <color name="grey">#808080</color>
+
+</resources>
