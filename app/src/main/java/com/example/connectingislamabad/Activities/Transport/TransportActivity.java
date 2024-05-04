@@ -74,11 +74,11 @@ public class TransportActivity extends AppCompatActivity {
         // For Categories Data
         ArrayList<TransportDomain> transportList = new ArrayList<>();
 
-        transportList.add(new TransportDomain("Green Line", "cat1", "intro_background"));
-        transportList.add(new TransportDomain("Orange Line", "cat2","cat2"));
-        transportList.add(new TransportDomain("Local Transport", "cat3","cat3"));
-        transportList.add(new TransportDomain("Metro", "cat4","cat4"));
-        transportList.add(new TransportDomain("Booking APPs", "cat5","cat5"));
+        transportList.add(new TransportDomain("Green Line",     "bus1","intro_background"));
+        transportList.add(new TransportDomain("Orange Line",    "bus1","cat2"));
+        transportList.add(new TransportDomain("Local Transport","bus1","cat3"));
+        transportList.add(new TransportDomain("Metro",          "bus1","cat4"));
+        transportList.add(new TransportDomain("Booking APPs",   "bus1","cat5"));
 
         recyclerViewTransport = findViewById(R.id.view_transport);
         recyclerViewTransport.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

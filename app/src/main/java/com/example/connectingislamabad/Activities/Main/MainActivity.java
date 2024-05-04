@@ -118,19 +118,5 @@ public class MainActivity extends AppCompatActivity {
         adapterPopular=new PopularAdapter(items);
         recyclerViewPopular.setAdapter(adapterPopular);
 
-//        For Categories Data
-        ArrayList<CategoryDomain> catsList=new ArrayList<>();
-
-        catsList.add(new CategoryDomain("Popular",      "cat1"));
-        catsList.add(new CategoryDomain("Must Visit",   "cat2"));
-        catsList.add(new CategoryDomain("Museums",      "cat3"));
-        catsList.add(new CategoryDomain("Food",         "cat4"));
-        catsList.add(new CategoryDomain("Famous",       "cat5"));
-
-        recyclerViewCategory=findViewById(R.id.view_cat);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        adapterCat=new CategoryAdapter(catsList);
-        recyclerViewCategory.setAdapter(adapterCat);
-
     }
 }
