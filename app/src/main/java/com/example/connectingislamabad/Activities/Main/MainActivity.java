@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Adapter adapterPopular, adapterCat;
+    private Adapter adapterPopular ;
     private RecyclerView recyclerViewPopular, recyclerViewCategory;
 
     @Override

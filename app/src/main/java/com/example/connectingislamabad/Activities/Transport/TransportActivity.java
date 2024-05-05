@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Adapter;
+
 
 import com.example.connectingislamabad.Activities.Category.CategoryActivity;
 import com.example.connectingislamabad.Activities.Main.MainActivity;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 
 public class TransportActivity extends AppCompatActivity {
 
-    private RecyclerView.Adapter adapterTransport;
+    private RecyclerView.Adapter adapterTransport ;
     private RecyclerView recyclerViewTransport;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,12 @@ public class TransportActivity extends AppCompatActivity {
         initRecyclerView();
 
         // Navigation Bar Controller
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.transport_bottom);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
 
-            @Override
+                @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.home_bottom) {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -71,16 +72,17 @@ public class TransportActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        // For Categories Data
+        // For Trasport Data
         ArrayList<TransportDomain> transportList = new ArrayList<>();
 
-        transportList.add(new TransportDomain("Green Line",     "bus1","intro_background"));
-        transportList.add(new TransportDomain("Orange Line",    "bus1","cat2"));
-        transportList.add(new TransportDomain("Local Transport","bus1","cat3"));
-        transportList.add(new TransportDomain("Metro",          "bus1","cat4"));
-        transportList.add(new TransportDomain("Booking APPs",   "bus1","cat5"));
+        transportList.add(new TransportDomain("Green Line",     "hey thereh","cat1", "route_1"));
+        transportList.add(new TransportDomain("Orange Line",    "hey thereh","cat1", "route_1"));
+        transportList.add(new TransportDomain("Local Transport","hey thereh","cat1", "route_1"));
+        transportList.add(new TransportDomain("Metro",          "hey thereh","cat1", "route_1"));
+        transportList.add(new TransportDomain("Booking Application",   "hey thereh","cat1", "route_1"));
 
         recyclerViewTransport = findViewById(R.id.view_transport);
+
         recyclerViewTransport.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapterTransport = new TransportAdapter(transportList);
         recyclerViewTransport.setAdapter(adapterTransport);

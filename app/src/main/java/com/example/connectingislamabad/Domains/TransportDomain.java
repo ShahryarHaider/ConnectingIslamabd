@@ -1,15 +1,19 @@
 package com.example.connectingislamabad.Domains;
 
-public class TransportDomain {
+import java.io.Serializable;
+
+public class TransportDomain implements Serializable {
 
     private String titleTxt;
+    private String descTxt;
     private String picImg;
-    private String picBg;
+    private String routeImg;
 
-    public TransportDomain(String titleTxt, String picImg, String picBg) {
+    public TransportDomain(String titleTxt, String descTxt, String picImg, String routeImg) {
         this.titleTxt = titleTxt;
-        this.picImg = picImg;
-        this.picBg = picBg;
+        this.descTxt =  descTxt;
+        this.picImg =   picImg;
+        this.routeImg = routeImg;
     }
 
     public String getTitleTxt() {
@@ -20,6 +24,14 @@ public class TransportDomain {
         this.titleTxt = titleTxt;
     }
 
+    public String getDescTxt() {
+        return descTxt;
+    }
+
+    public void setDescTxt(String descTxt) {
+        this.descTxt = descTxt;
+    }
+
     public String getPicImg() {
         return picImg;
     }
@@ -28,11 +40,11 @@ public class TransportDomain {
         this.picImg = picImg;
     }
 
-    public String getPicBg() {
-        return picBg;
+    public String getRouteImg() {
+        return routeImg;
     }
 
-    public void setPicBg(String picBg) {
-        this.picBg = picBg;
+    public void setRouteImg(String routeImg) {
+        this.routeImg = routeImg;
     }
 }
