@@ -43,7 +43,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.titleTxt.setText(items.get(position).getTitle());
 
         @SuppressLint("DiscouragedApi")
-        int drawableResourceId = holder.itemView.getResources().getIdentifier(items.get(position).getPicPath(), "drawable", holder.itemView.getContext().getPackageName());
+        int drawableResourceId = holder.itemView.getResources().getIdentifier(items.get(position).getPicPath(),
+                "drawable", holder.itemView.getContext().getPackageName());
 
         if (drawableResourceId != 0) {
             Glide.with(holder.itemView.getContext())

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //RecyclerView of Poupular Category
+    //RecyclerView of Popular Category
     private void initRecylerView() {
         //Array List
         ArrayList <PopularDomain> items = new ArrayList<>();

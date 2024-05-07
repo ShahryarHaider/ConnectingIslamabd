@@ -78,11 +78,11 @@ public class CategoryActivity extends AppCompatActivity {
         // For Categories Data
         ArrayList<CategoryDomain> catsList = new ArrayList<>();
 
-        catsList.add(new CategoryDomain("Popular", "cat1"));
-        catsList.add(new CategoryDomain("Must Visit", "cat2"));
-        catsList.add(new CategoryDomain("Museums", "cat3"));
-        catsList.add(new CategoryDomain("Food", "cat4"));
-        catsList.add(new CategoryDomain("Famous", "cat5"));
+        catsList.add(new CategoryDomain("Popular",      "cat_popular"));
+        catsList.add(new CategoryDomain("Recommended",  "cat_food"));
+        catsList.add(new CategoryDomain("Museums",      "cat_museum"));
+        catsList.add(new CategoryDomain("Food",         "cat_food"));
+        catsList.add(new CategoryDomain("Traditional",  "cat_traditional"));
 
         recyclerViewCategory = findViewById(R.id.view_cat);
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

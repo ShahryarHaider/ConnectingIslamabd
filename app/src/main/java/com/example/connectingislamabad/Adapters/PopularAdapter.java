@@ -41,7 +41,7 @@ public class PopularAdapter  extends RecyclerView.Adapter<PopularAdapter.ViewHol
     @Override
     public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
 
-        //Holder
+        //Holder of Txt Data only
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.locationTxt.setText(items.get(position).getLocation());
         holder.ratingTxt.setText(" "+items.get(position).getRating());

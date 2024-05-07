@@ -29,23 +29,24 @@ public class DetailActivityTransport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_transport);
 
-        initView();
-        setVariable();
-    }
 
-    private void setVariable() {
-        titleTxt = findViewById(R.id.titleTxt);
-        descTxt = findViewById(R.id.descTxt);
-        picImg = findViewById(R.id.picImg);
-        backBtn = findViewById(R.id.backBtn);
-        routeImg = findViewById(R.id.routeImg);
+        initView(); // Initialize views first
+        setVariable(); // Set text and other variables afterwards
     }
 
     private void initView() {
+        titleTxt = findViewById(R.id.titleTxt);
+        descTxt = findViewById(R.id.descTxt);
+        backBtn = findViewById(R.id.backBtn);
+        picImg = findViewById(R.id.picImg);
+        routeImg = findViewById(R.id.routeImg);
+        //Contains Only Text Data
+    }
+
+    private void setVariable() {
         item = (TransportDomain) getIntent().getSerializableExtra("object");
-
         titleTxt.setText(item.getTitleTxt());
-
+        descTxt.setText(item.getDescTxt());
 
 
         int drawableResId = getResources().getIdentifier(item.getPicImg(), "drawable", getPackageName());

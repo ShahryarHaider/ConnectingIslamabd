@@ -29,12 +29,10 @@ import java.util.ArrayList;
 public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.ViewHolder>{
 
     ArrayList<TransportDomain> items;
-    DecimalFormat formatter;
+
 
     public TransportAdapter(ArrayList <TransportDomain> items) {
         this.items = items;
-
-        formatter=new DecimalFormat("###,###,###,###");
     }
 
     @NonNull
@@ -47,10 +45,8 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
     @Override
     public void onBindViewHolder(@NonNull TransportAdapter.ViewHolder holder, int position) {
 
+        //Holder of text data only
         holder.titleTxt.setText(items.get(position).getTitleTxt());
-        holder.descTxt.setText(items.get(position).getDescTxt());
-
-
 
         int drawableResId = holder.itemView.getResources().getIdentifier(items.get(position).getPicImg(),
                 "drawable", holder.itemView.getContext().getPackageName());
@@ -59,7 +55,6 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
         //Glide Holder
         Glide.with(holder.itemView.getContext())
                 .load(drawableResId)
-                .transform(new CenterCrop(),new GranularRoundedCorners(40,40,40,40))
                 .into(holder.picImg);
 
         //Fetch Info For TransportActivity Class
@@ -76,19 +71,19 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
     public int getItemCount() {
         return items.size();
     }
-    //ViewHolder
+
+    //ViewHolder for Tranport 1st Category :)
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        //contains Data that is visible on the Tranport 1st Display
         TextView titleTxt;
-        TextView descTxt;
         ImageView picImg;
-        ImageView routeImg;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             titleTxt=itemView.findViewById(R.id.titleTxt);
             picImg=itemView.findViewById(R.id.picImg);
-            routeImg=itemView.findViewById(R.id.routeImg);
-            descTxt=itemView.findViewById(R.id.descTxt);
         }
     }
 }
