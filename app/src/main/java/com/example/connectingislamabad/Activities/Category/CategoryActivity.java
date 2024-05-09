@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,7 +25,7 @@ public class CategoryActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterCat;
     private RecyclerView recyclerViewCategory;
 
-    @SuppressLint("NonConstantResourceId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,13 +79,16 @@ public class CategoryActivity extends AppCompatActivity {
 
         catsList.add(new CategoryDomain("Popular",      "cat_popular"));
         catsList.add(new CategoryDomain("Recommended",  "cat_food"));
-        catsList.add(new CategoryDomain("Museums",      "cat_museum"));
+        catsList.add(new CategoryDomain("Museums",      "cat_popular"));
         catsList.add(new CategoryDomain("Food",         "cat_food"));
-        catsList.add(new CategoryDomain("Traditional",  "cat_traditional"));
+        catsList.add(new CategoryDomain("Traditional",  "cat5"));
 
-        recyclerViewCategory = findViewById(R.id.view_cat);
+        recyclerViewCategory = findViewById(R.id.cat_food_card);
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapterCat = new CategoryAdapter(catsList);
         recyclerViewCategory.setAdapter(adapterCat);
+
+
     }
+
 }

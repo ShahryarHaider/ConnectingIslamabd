@@ -1,6 +1,11 @@
 package com.example.connectingislamabad.Domains;
 
-public class CategoryDomain {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class CategoryDomain implements Parcelable {
 
     private String title;
     private String picPath;
@@ -9,6 +14,23 @@ public class CategoryDomain {
         this.title = title;
         this.picPath = picPath;
     }
+
+    protected CategoryDomain(Parcel in) {
+        title = in.readString();
+        picPath = in.readString();
+    }
+
+    public static final Creator<CategoryDomain> CREATOR = new Creator<CategoryDomain>() {
+        @Override
+        public CategoryDomain createFromParcel(Parcel in) {
+            return new CategoryDomain(in);
+        }
+
+        @Override
+        public CategoryDomain[] newArray(int size) {
+            return new CategoryDomain[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -24,5 +46,16 @@ public class CategoryDomain {
 
     public void setPicPath(String picPath) {
         this.picPath = picPath;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(picPath);
     }
 }

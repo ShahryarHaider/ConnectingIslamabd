@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ConnectingIslamabad"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.Category.DetailSubCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.SubCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.Transport.DetailActivityTransport"
             android:exported="false" />
         <activity

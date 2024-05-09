@@ -1,6 +1,6 @@
 package com.example.connectingislamabad.Adapters;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,57 +21,62 @@ import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    //ArrayList Contains Items
-    ArrayList<CategoryDomain> items;
+    // ArrayList contains items
+    @NonNull
+    private final ArrayList<CategoryDomain> items;
 
-    //Constructor
-    public CategoryAdapter(ArrayList<CategoryDomain> items) {
+    // Constructor
+    public CategoryAdapter(@NonNull ArrayList<CategoryDomain> items) {
         this.items = items;
+    }
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(int position);
     }
 
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //View Holder Category Link
-
-        View Inflate= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category,parent,false);
-        return new ViewHolder(Inflate);
+        // View holder category link
+        View categoryView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category, parent, false);
+        return new ViewHolder(categoryView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
 
-        @SuppressLint("DiscouragedApi")
-        int drawableResourceId = holder.itemView.getResources().getIdentifier(items.get(position).getPicPath(),
-                "drawable", holder.itemView.getContext().getPackageName());
+        Context context = holder.itemView.getContext();
+        String picPath = items.get(position).getPicPath();
+        Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(picPath, "drawable", context.getPackageName()));
 
-        if (drawableResourceId != 0) {
-            Glide.with(holder.itemView.getContext())
-                    .load(drawableResourceId)
-                    .into(holder.picImg);
+        if (drawable!= null) {
+            Glide.with(context).load(drawable).into(holder.picImg);
         } else {
-            // Log a message or take appropriate action if the resource is not found
-            Log.e("CategoryAdapter", "Drawable resource not found for: " + items.get(position).getPicPath());
+            Log.e("CategoryAdapter", "Drawable resource not found for item at position " + position + ": " + picPath);
         }
+
+        // Add OnClickListener to category view
+
     }
 
 
-    //Get Item Count
+    // Get item count
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-    //ViewHolder
+    // View holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleTxt;
         ImageView picImg;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTxt=itemView.findViewById(R.id.titleTxt);
-            picImg=itemView.findViewById(R.id.catImg);
+            titleTxt = itemView.findViewById(R.id.titleTxt);
+            picImg = itemView.findViewById(R.id.catImg);
         }
     }
 }
