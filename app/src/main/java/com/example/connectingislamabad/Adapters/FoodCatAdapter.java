@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.connectingislamabad.Activities.Category.DetailFoodCatActivity;
+import com.example.connectingislamabad.Activities.Category.Detail.DetailFoodCatActivity;
 import com.example.connectingislamabad.Domains.FoodCatDomain;
 import com.example.connectingislamabad.R;
 

@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class CategoryActivity extends AppCompatActivity {
 
     // Initializing For Categories
-    private RelativeLayout food_Category;
+    private RelativeLayout food_Category,museum_Category ,popular_Category;
     private FrameLayout container;
 
 
@@ -31,6 +31,10 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         food_Category = findViewById(R.id.food_Category);
+        museum_Category = findViewById(R.id.museum_Category);
+        popular_Category = findViewById(R.id.popular_Category);
+
+
 
         food_Category.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +42,24 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(new Intent(CategoryActivity.this,FoodCatActivity.class));
             }
         });
+
+        museum_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,FoodCatActivity.class));
+            }
+        });
+
+        popular_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,PopularCatActivity.class));
+            }
+        });
+
+
+
+
 
 
 

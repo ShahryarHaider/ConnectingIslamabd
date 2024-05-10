@@ -54,13 +54,13 @@
 
                     <TextView
                         android:id="@+id/titleTxt"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="25dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="25dp"
                         android:text="Food"
-                        android:textColor="#333333"
-                        android:textSize="30dp"
+                        android:textColor="#555555"
+                        android:textSize="25sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -69,17 +69,17 @@
                     android:id="@+id/picImg"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:elevation="10dp"
+                    android:elevation="1dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="-30dp"
-                    android:src="@drawable/cat_food1" />
+                    android:src="@drawable/cat_food2" />
 
             </RelativeLayout>
 
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:cardBackgroundColor="#00008B00"
                 app:cardElevation="8dp"
                 android:layout_margin="20dp">
@@ -88,14 +88,15 @@
                     android:id="@+id/museum_Category"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-
-                    android:background="@drawable/background_blue">
+                    android:background="@drawable/background_black">
 
                     <ImageView
                         android:layout_width="120dp"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/cat_museum"
-                        android:layout_marginLeft="20dp"/>
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cat_museum1" />
 
                     <TextView
                         android:id="@+id/museumTxt"
@@ -104,9 +105,9 @@
                         android:padding="25dp"
                         android:layout_marginTop="25dp"
                         android:layout_alignParentRight="true"
-                        android:text="Musuems"
-                        android:textColor="#ADD8E6"
-                        android:textSize="30sp"
+                        android:text="Museum"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
                         android:textStyle="bold"/>
 
 
@@ -114,7 +115,45 @@
 
             </androidx.cardview.widget.CardView>
 
+            <RelativeLayout
+                android:id="@+id/popular_Category"
+                android:layout_width="match_parent"
+                android:layout_height="190dp">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_orange">
+
+                    <TextView
+                        android:id="@+id/titleTxt3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:layout_marginTop="25dp"
+                        android:text="Popular"
+                        android:textColor="#333333"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:id="@+id/picImg2"
+                    android:layout_width="150dp"
+                    android:layout_height="170dp"
+                    android:elevation="10dp"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-2dp"
+                    android:src="@drawable/cat_popular1" />
+
+            </RelativeLayout>
 
 
 

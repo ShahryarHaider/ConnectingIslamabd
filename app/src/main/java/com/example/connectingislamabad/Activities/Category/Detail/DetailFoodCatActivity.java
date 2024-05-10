@@ -1,4 +1,4 @@
-package com.example.connectingislamabad.Activities.Category;
+package com.example.connectingislamabad.Activities.Category.Detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
