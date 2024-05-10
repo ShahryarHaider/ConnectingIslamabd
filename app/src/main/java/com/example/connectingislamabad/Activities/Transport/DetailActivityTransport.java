@@ -20,7 +20,6 @@ public class DetailActivityTransport extends AppCompatActivity {
     private TransportDomain item;
 
     //ImageView
-
     private ImageView picImg, backBtn, routeImg;
 
 

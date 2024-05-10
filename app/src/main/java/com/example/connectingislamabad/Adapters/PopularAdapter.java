@@ -72,6 +72,7 @@ public class PopularAdapter  extends RecyclerView.Adapter<PopularAdapter.ViewHol
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTxt,locationTxt,ratingTxt;
         ImageView pic;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
