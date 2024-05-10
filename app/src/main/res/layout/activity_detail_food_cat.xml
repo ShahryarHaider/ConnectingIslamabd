@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Main.DetailActivity">
-
+    tools:context=".Activities.Category.DetailFoodCatActivity">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="110dp"
-        tools:layout_editor_absoluteY="68dp">
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,23 +21,12 @@
                 <ImageView
                     android:id="@+id/picImg"
                     android:layout_width="wrap_content"
-                    android:layout_height="355dp"
+                    android:layout_height="300dp"
                     android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/bus_metro"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/pic2" />
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="45dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/backBtn"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/backBtn"
-                    app:srcCompat="@drawable/fav" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/backBtn"
@@ -48,9 +34,11 @@
                     android:layout_height="45dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="32dp"
+                    android:src="@drawable/back_arrow"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/back_arrow" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -60,7 +48,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="Islamabad is a city with great view"
+                android:text="Food :) "
                 android:textSize="22sp"
                 android:textStyle="bold"/>
 
@@ -75,7 +63,7 @@
                 <ImageView
                     android:id="@+id/imageView10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/marker" />
 
@@ -90,7 +78,7 @@
                 <ImageView
                     android:id="@+id/imageView11"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/star" />
@@ -105,7 +93,6 @@
                     android:textSize="17sp" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -122,24 +109,24 @@
                     android:background="@drawable/border_background">
 
                     <ImageView
-                        android:id="@+id/bedImg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:id="@+id/dineImg"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/bed" />
+                        app:srcCompat="@drawable/dine_img" />
 
                     <TextView
-                        android:id="@+id/bedTxt"
+                        android:id="@+id/dineTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Bed"
-                        app:layout_constraintBottom_toBottomOf="@+id/bedImg"
-                        app:layout_constraintStart_toEndOf="@+id/bedImg"
-                        app:layout_constraintTop_toTopOf="@+id/bedImg" />
+                        android:text="Dine in"
+                        app:layout_constraintBottom_toBottomOf="@+id/dineImg"
+                        app:layout_constraintStart_toEndOf="@+id/dineImg"
+                        app:layout_constraintTop_toTopOf="@+id/dineImg" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,24 +138,24 @@
                     android:background="@drawable/border_background">
 
                     <ImageView
-                        android:id="@+id/guideImg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:id="@+id/foodTypeImg"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/guide" />
+                        app:srcCompat="@drawable/food_type_img" />
 
                     <TextView
-                        android:id="@+id/guideTxt"
+                        android:id="@+id/typeTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Guide"
-                        app:layout_constraintBottom_toBottomOf="@+id/guideImg"
-                        app:layout_constraintStart_toEndOf="@+id/guideImg"
-                        app:layout_constraintTop_toTopOf="@+id/guideImg" />
+                        android:text="Fast Food"
+                        app:layout_constraintBottom_toBottomOf="@+id/foodTypeImg"
+                        app:layout_constraintStart_toEndOf="@+id/foodTypeImg"
+                        app:layout_constraintTop_toTopOf="@+id/foodTypeImg" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -179,12 +166,12 @@
 
                     <ImageView
                         android:id="@+id/wifiImg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
                         app:srcCompat="@drawable/wifi" />
 
                     <TextView
@@ -217,13 +204,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="The name Islamabad (“City of Islam,” or “City
-                of Peace”) was chosen to reflect the country's
-                ideology. The planned capital area of 350 square
-                miles (906 square km) is an expanse of natural
-                terraces and meadows surrounding the city"
+                android:text="Food Is Fantastic "
                 android:textSize="17sp"
-                 />
+                />
+
+            <!--Directinons-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -249,4 +234,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

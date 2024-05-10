@@ -13,10 +13,19 @@
         android:theme="@style/Theme.ConnectingIslamabad"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.Category.DetailSubCategoryActivity"
+            android:name=".Activities.Category.DetailFoodCatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.PopularCatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.FoodCatActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Category.SubCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.DetailSubCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Transport.DetailActivityTransport"

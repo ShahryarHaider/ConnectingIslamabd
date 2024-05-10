@@ -1,9 +1,6 @@
 package com.example.connectingislamabad.Adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,45 +11,40 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
-import com.example.connectingislamabad.Activities.Main.DetailActivity;
-import com.example.connectingislamabad.Activities.Transport.DetailActivityTransport;
-import com.example.connectingislamabad.Activities.Transport.TransportActivity;
-import com.example.connectingislamabad.Domains.CategoryDomain;
-import com.example.connectingislamabad.Domains.TransportDomain;
+import com.example.connectingislamabad.Activities.Category.DetailFoodCatActivity;
+import com.example.connectingislamabad.Domains.FoodCatDomain;
 import com.example.connectingislamabad.R;
 
-import java.text.DecimalFormat;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.ViewHolder>{
+public class FoodCatAdapter extends RecyclerView.Adapter<FoodCatAdapter.ViewHolder> {
 
-    //Arraylist TransportDomain
-    ArrayList<TransportDomain> items;
+    ArrayList<FoodCatDomain> items;
 
-
-    //Constructor
-    public TransportAdapter(ArrayList <TransportDomain> items) {
+    public FoodCatAdapter(ArrayList<FoodCatDomain> items) {
         this.items = items;
     }
 
     @NonNull
     @Override
-    public TransportAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View Inflate= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_transport,parent,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for a single item in the RecyclerView
+        View Inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_subcategory, parent, false);
+
+        // Create a new ViewHolder object using the inflated view
         return new ViewHolder(Inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TransportAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         //Holder of text data only
         holder.titleTxt.setText(items.get(position).getTitleTxt());
 
         int drawableResId = holder.itemView.getResources().getIdentifier(items.get(position).getPicImg(),
                 "drawable", holder.itemView.getContext().getPackageName());
-
 
         //Glide Holder
         Glide.with(holder.itemView.getContext())
@@ -62,8 +54,8 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
         //Fetch Info For TransportActivity Class
         holder.itemView.setOnClickListener(v ->{
             {
-                Intent intent = new Intent (holder.itemView.getContext(), DetailActivityTransport.class);
-                intent.putExtra("object",items.get(position));
+                Intent intent = new Intent (holder.itemView.getContext(), DetailFoodCatActivity.class);
+                intent.putExtra("object", (Serializable) items.get(position));
                 holder.itemView.getContext().startActivity(intent);
             }
         });
@@ -74,7 +66,6 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
         return items.size();
     }
 
-    //ViewHolder for Tranport 1st Category :)
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         //contains Data that is visible on the Tranport 1st Display
@@ -89,3 +80,5 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
         }
     }
 }
+
+

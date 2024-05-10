@@ -2,39 +2,46 @@ package com.example.connectingislamabad.Activities.Category;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
-import com.example.connectingislamabad.Adapters.CategoryAdapter;
-import com.example.connectingislamabad.Domains.CategoryDomain;
 import com.example.connectingislamabad.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class CategoryActivity extends AppCompatActivity {
 
     // Initializing For Categories
-    private RecyclerView.Adapter adapterCat;
-    private RecyclerView recyclerViewCategory;
+    private RelativeLayout food_Category;
+    private FrameLayout container;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        initRecyclerView();
+        food_Category = findViewById(R.id.food_Category);
+
+        food_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,FoodCatActivity.class));
+            }
+        });
+
+
 
         // Navigation Bar Controller
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.category_bottom);
 
@@ -72,23 +79,4 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void initRecyclerView() {
-        // For Categories Data
-        ArrayList<CategoryDomain> catsList = new ArrayList<>();
-
-        catsList.add(new CategoryDomain("Popular",      "cat_popular"));
-        catsList.add(new CategoryDomain("Recommended",  "cat_food"));
-        catsList.add(new CategoryDomain("Museums",      "cat_popular"));
-        catsList.add(new CategoryDomain("Food",         "cat_food"));
-        catsList.add(new CategoryDomain("Traditional",  "cat5"));
-
-        recyclerViewCategory = findViewById(R.id.cat_food_card);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapterCat = new CategoryAdapter(catsList);
-        recyclerViewCategory.setAdapter(adapterCat);
-
-
-    }
-
 }

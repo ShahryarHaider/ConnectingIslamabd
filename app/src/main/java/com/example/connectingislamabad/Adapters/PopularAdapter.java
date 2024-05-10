@@ -54,7 +54,7 @@ public class PopularAdapter  extends RecyclerView.Adapter<PopularAdapter.ViewHol
                 .transform(new CenterCrop(),new GranularRoundedCorners(40,40,40,40))
                 .into(holder.pic);
 
-        //Fetch Info For DetailAcitvity Class
+        //Fetch Info Fo DetailAcitvity Class
         holder.itemView.setOnClickListener(v ->{
             {
                 Intent intent = new Intent (holder.itemView.getContext(), DetailActivity.class);

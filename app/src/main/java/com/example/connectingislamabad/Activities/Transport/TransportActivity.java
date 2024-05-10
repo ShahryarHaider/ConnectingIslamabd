@@ -77,7 +77,9 @@ public class TransportActivity extends AppCompatActivity {
         // For Trasport Data
         ArrayList<TransportDomain> transportList = new ArrayList<>();
 
-        transportList.add(new TransportDomain("Red Line Bus",
+
+        //Add these Details in Tranport Details Activity :)
+        transportList.add(new TransportDomain("Red Liiine Bus",
                 "Red Line Metro\n" +
                         "1. Secretariat \n" +
                         "2. Shaheed-e-Millat\n" +
@@ -161,5 +163,6 @@ public class TransportActivity extends AppCompatActivity {
         recyclerViewTransport.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         adapterTransport = new TransportAdapter(transportList);
         recyclerViewTransport.setAdapter(adapterTransport);
+
     }
 }
