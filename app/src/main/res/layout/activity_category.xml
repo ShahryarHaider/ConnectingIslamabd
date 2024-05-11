@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +21,23 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="40dp">
 
+            <!-- BackButton-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/backBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/back_arrow"/>
+
+
+            </LinearLayout>
+
+            <!-- Categories Text-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -37,6 +55,7 @@
 
             </LinearLayout>
 
+            <!-- Food Card-->
             <RelativeLayout
                 android:id="@+id/food_Category"
                 android:layout_width="match_parent"
@@ -59,7 +78,7 @@
                         android:padding="25dp"
                         android:layout_marginTop="25dp"
                         android:text="Food"
-                        android:textColor="#555555"
+                        android:textColor="#123131"
                         android:textSize="25sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -76,7 +95,7 @@
 
             </RelativeLayout>
 
-
+            <!-- Museum Card-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -94,7 +113,6 @@
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/cat_museum1" />
 
@@ -115,6 +133,7 @@
 
             </androidx.cardview.widget.CardView>
 
+            <!-- Popular Card-->
             <RelativeLayout
                 android:id="@+id/popular_Category"
                 android:layout_width="match_parent"
@@ -137,7 +156,7 @@
                         android:padding="25dp"
                         android:layout_marginTop="25dp"
                         android:text="Popular"
-                        android:textColor="#333333"
+                        android:textColor="@color/white"
                         android:textSize="25sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -155,14 +174,89 @@
 
             </RelativeLayout>
 
+            <!-- Market Card-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#00008B00"
+                app:cardElevation="8dp"
+                android:layout_margin="20dp">
 
+                <RelativeLayout
+                    android:id="@+id/market_Category"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/background_black">
+
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cat_market" />
+
+                    <TextView
+                        android:id="@+id/mustvisitTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Markets"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:textStyle="bold"/>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Must Visit Card-->
+            <RelativeLayout
+                android:id="@+id/mustvisit_Category"
+                android:layout_width="match_parent"
+                android:layout_height="190dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_purple">
+
+                    <TextView
+                        android:id="@+id/titleTxt4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:layout_marginTop="25dp"
+                        android:text="Must Visit"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:id="@+id/picImg5"
+                    android:layout_width="150dp"
+                    android:layout_height="170dp"
+                    android:elevation="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-30dp"
+                    android:src="@drawable/cat_mustvisit1" />
+
+            </RelativeLayout>
 
         </LinearLayout>
+
     </ScrollView>
 
     <!-- NavigationBar Bottom-->
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
