@@ -28,25 +28,30 @@ public class SignupActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameForm);
         emailEditText = findViewById(R.id.emailForm);
         passwordEditText = findViewById(R.id.passwordForm);
+        signupButton = findViewById(R.id.signupButton);
+
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signUp1(view);
+                signUp();
             }
         });
     }
 
 
-    public void signUp1(View v) {
+    private void signUp() {
         String name = nameEditText.getText().toString();
         String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        int password = Integer.parseInt(passwordEditText.getText().toString());
 
         DatabaseHelper databaseHelper = new DatabaseHelper();
-        SignUp signUp = new SignUp(databaseHelper);
-        signUp.signUp(name, email, password);
+        boolean success = databaseHelper.signUp(name, email, String.valueOf(password));
 
-        Toast.makeText(this, "Sign-up successful!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
+        if (success) {
+            Toast.makeText(this, "Sign-up successful!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, MainActivity.class));
+        } else {
+            Toast.makeText(this, "Sign-up failed. Please try again.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
