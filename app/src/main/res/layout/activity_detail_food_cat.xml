@@ -187,22 +187,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp">
-
-                <ImageView
-                    android:id="@+id/food_pic"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/food_pic1" />
-
-            </LinearLayout>
-
 
             <TextView
                 android:id="@+id/textView9"
@@ -225,6 +209,12 @@
                 />
 
             <!--Directinons-->
+
+            <ImageView
+                android:id="@+id/food_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="260dp"
+                android:src="@drawable/food_pic1" />
 
             <LinearLayout
                 android:layout_width="match_parent"

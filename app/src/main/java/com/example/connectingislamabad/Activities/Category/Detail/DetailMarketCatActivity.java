@@ -11,38 +11,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.connectingislamabad.Domains.FoodCatDomain;
-import com.example.connectingislamabad.Domains.TransportDomain;
+import com.example.connectingislamabad.Domains.MuseumCatDomain;
 import com.example.connectingislamabad.R;
 
-public class DetailFoodCatActivity extends AppCompatActivity {
+public class DetailMarketCatActivity extends AppCompatActivity {
 
-    private TextView titleTxt, descriptionTxt,locationTxt,ratingTxt,dineTxt,typeTxt,wifiTxt;
-    private FoodCatDomain item;
+    private TextView titleTxt,ratingTxt, locationTxt, firstTxt, secondTxt, thirdTxt, fourthTxt, descriptionTxt;
+    private ImageView picImg, backBtn;
 
     private Button directionBtn;
-
-    private ImageView picImg, backBtn,food_pic;
-
-
+    private MuseumCatDomain item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_food_cat);
+        setContentView(R.layout.activity_detail_market_cat);
 
-        initView(); // Initialize views first
-        setVariable(); // Set text and other variables afterwards
+
+        initView();
+        setVariable();
     }
 
     private void setVariable() {
-        item = (FoodCatDomain) getIntent().getSerializableExtra("object");
+
+        item = (MuseumCatDomain)  getIntent().getSerializableExtra("object");
 
         titleTxt.setText(item.getTitleTxt());
         descriptionTxt.setText(item.getDescriptionTxt());
         locationTxt.setText(item.getLocationTxt());
         ratingTxt.setText(item.getRatingTxt());
-        wifiTxt.setText(item.getWifiTxt());
-        typeTxt.setText(item.getTypeTxt());
+        firstTxt.setText(item.getFirstTxt());
+        secondTxt.setText(item.getSecondTxt());
+        thirdTxt.setText(item.getThirdTxt());
+        fourthTxt.setText(item.getFourthTxt());
+
         directionBtn.setOnClickListener(v -> {
 
             // Open the link here
@@ -61,23 +62,25 @@ public class DetailFoodCatActivity extends AppCompatActivity {
                 .load(drawableResId)
                 .into(picImg);
 
-        //Backbutton Click
         backBtn.setOnClickListener(v -> finish());
+
     }
 
     private void initView() {
-        titleTxt        = findViewById(R.id.titleTxt);
-        descriptionTxt  = findViewById(R.id.descriptionTxt);
-        locationTxt     = findViewById(R.id.locationTxt);
-        ratingTxt       = findViewById(R.id.ratingTxt);
-        dineTxt         = findViewById(R.id.dineTxt);
-        typeTxt         = findViewById(R.id.typeTxt);
-        wifiTxt         = findViewById(R.id.wifiTxt);
+        titleTxt = findViewById(R.id.titleTxt);
+        locationTxt = findViewById(R.id.locationTxt);
+        ratingTxt = findViewById(R.id.ratingTxt);
 
-        backBtn         = findViewById(R.id.backBtn);
-        picImg          = findViewById(R.id.picImg);
-        food_pic        = findViewById(R.id.food_pic);
+        firstTxt = findViewById(R.id.firstTxt);
+        secondTxt = findViewById(R.id.secondTxt);
+        thirdTxt = findViewById(R.id.thirdTxt);
+        fourthTxt = findViewById(R.id.fourthTxt);
+        descriptionTxt = findViewById(R.id.descriptionTxt);
 
-        directionBtn    = findViewById(R.id.directionBtn);
+        picImg = findViewById(R.id.picImg);
+        backBtn = findViewById(R.id.backBtn);
+
+        directionBtn = findViewById(R.id.directionBtn);
+
     }
 }

@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class CategoryActivity extends AppCompatActivity {
 
     // Initializing For Categories
-    private RelativeLayout food_Category,museum_Category ,popular_Category;
+    private RelativeLayout food_Category,museum_Category ,popular_Category, shopping_Category, mustvisit_Category, transport_Category;
     private FrameLayout container;
 
 
@@ -33,9 +33,11 @@ public class CategoryActivity extends AppCompatActivity {
         food_Category = findViewById(R.id.food_Category);
         museum_Category = findViewById(R.id.museum_Category);
         popular_Category = findViewById(R.id.popular_Category);
+        shopping_Category = findViewById(R.id.shopping_Category);
+        mustvisit_Category = findViewById(R.id.mustvisit_Category);
+        transport_Category = findViewById(R.id.transport_Category);
 
-
-
+        //Food Category
         food_Category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,13 +45,15 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
+        //Museuem Category
         museum_Category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CategoryActivity.this,FoodCatActivity.class));
+                startActivity(new Intent(CategoryActivity.this,MuseumCatActivity.class));
             }
         });
 
+        //Popular Category
         popular_Category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,9 +61,29 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
+        //Market// Shopping Category
+        shopping_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,MuseumCatActivity.class));
+            }
+        });
 
+        //Mustvisit Category
+        mustvisit_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,MustvisitCatActivity.class));
+            }
+        });
 
-
+        //Transport Category
+        transport_Category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CategoryActivity.this,TransportActivity.class));
+            }
+        });
 
 
 

@@ -174,7 +174,7 @@
 
             </RelativeLayout>
 
-            <!-- Market Card-->
+            <!-- Shopping Card-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -183,26 +183,26 @@
                 android:layout_margin="20dp">
 
                 <RelativeLayout
-                    android:id="@+id/market_Category"
+                    android:id="@+id/shopping_Category"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@drawable/background_black">
 
                     <ImageView
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:layout_marginLeft="10dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/cat_market" />
 
                     <TextView
-                        android:id="@+id/mustvisitTxt"
+                        android:id="@+id/market_Txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="25dp"
                         android:layout_marginTop="25dp"
                         android:layout_alignParentRight="true"
-                        android:text="Markets"
+                        android:text="Shopping"
                         android:textColor="@color/white"
                         android:textSize="25sp"
                         android:textStyle="bold"/>
@@ -251,6 +251,44 @@
                     android:src="@drawable/cat_mustvisit1" />
 
             </RelativeLayout>
+
+            <!-- Transport Card-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#00008B00"
+                app:cardElevation="8dp"
+                android:layout_margin="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/transport_Category"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/background_black">
+
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cat_transport" />
+
+                    <TextView
+                        android:id="@+id/tranportTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="25dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_alignParentRight="true"
+                        android:text="Tranport"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        android:textStyle="bold"/>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

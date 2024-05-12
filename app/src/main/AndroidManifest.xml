@@ -13,6 +13,18 @@
         android:theme="@style/Theme.ConnectingIslamabad"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.Category.MustvisitCatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.Detail.DetailMustvisitCatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.Detail.DetailMarketCatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.Category.MarketCatActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.Category.Detail.DetailMuseumCatActivity"
             android:exported="false" />
         <activity
@@ -29,12 +41,6 @@
             android:exported="false" />
         <activity
             android:name=".Activities.Category.FoodCatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.Category.SubCategoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.Category.DetailSubCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Transport.DetailActivityTransport"

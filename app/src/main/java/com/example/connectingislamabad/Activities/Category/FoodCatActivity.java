@@ -68,7 +68,6 @@ public class FoodCatActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void initRecyclerView() {
@@ -80,37 +79,43 @@ public class FoodCatActivity extends AppCompatActivity {
                 "food_cheezious", "H8", "4.7",
                 "Dine In", "Fast Food", "No",
                 "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "food_pic1","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
 
         foodcatList.add(new FoodCatDomain("Savour",
                 "food_savour", "H8", "47",
                 "Dine In", "Fast Food", "No",
                 "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "food_pic1","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
 
         foodcatList.add(new FoodCatDomain("Ranchers",
                 "food_ranchers", "H8", "4.7",
                 "Dine In", "Fast Food", "No",
                 "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "food_pic1","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8\n"));
 
         foodcatList.add(new FoodCatDomain("TKR",
-                "food_TKR", "H8", "4.7",
+                "food_tkr", "H8", "4.7",
                 "Dine In", "Fast Food", "No",
-                "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "Fastly Growing Fast Food Brand In Pakistan. Fastly Growing Fast Food Brand In Pakistan" +
+                        "Fastly Growing Fast Food Brand In Pakistan" +
+                        "Fastly Growing Fast Food Brand In Pakistan" +
+                        "Fastly Growing Fast Food Brand In Pakistan" +
+                        "Fastly Growing Fast Food Brand In Pakistan ",
+                "food_pic1","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8\n"));
 
         foodcatList.add(new FoodCatDomain("Malang Jan",
                 "food_malang", "H8", "4.7",
                 "Dine In", "Fast Food", "No",
                 "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "food_pic1",
+                "https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8\n"));
 
         foodcatList.add(new FoodCatDomain("Ox And Grill House",
                 "food_cheezious", "H8", "4.7",
                 "Dine In", "Fast Food", "No",
                 "Fastly Growing Fast Food Brand In Pakistan",
-                "food_pic1"));
+                "food_pic1",
+                "https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8\n"));
 
 
         recyclerViewFoodCat = findViewById(R.id.view_food_cat);

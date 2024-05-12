@@ -23,6 +23,7 @@ public class FoodCatAdapter extends RecyclerView.Adapter<FoodCatAdapter.ViewHold
 
     ArrayList<FoodCatDomain> items;
 
+
     public FoodCatAdapter(ArrayList<FoodCatDomain> items) {
         this.items = items;
     }
@@ -51,7 +52,7 @@ public class FoodCatAdapter extends RecyclerView.Adapter<FoodCatAdapter.ViewHold
                 .load(drawableResId)
                 .into(holder.picImg);
 
-        //Fetch Info For TransportActivity Class
+        //Fetch Info For DetailFoodActivity Class
         holder.itemView.setOnClickListener(v ->{
             {
                 Intent intent = new Intent (holder.itemView.getContext(), DetailFoodCatActivity.class);
@@ -61,14 +62,16 @@ public class FoodCatAdapter extends RecyclerView.Adapter<FoodCatAdapter.ViewHold
         });
     }
 
+    //Count the Number in the RecyclerView
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    //ViewHolder For RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        //contains Data that is visible on the Tranport 1st Display
+        //contains Data that is visible on the Foood 1st Display / RecyclerView
         TextView titleTxt;
         ImageView picImg;
 

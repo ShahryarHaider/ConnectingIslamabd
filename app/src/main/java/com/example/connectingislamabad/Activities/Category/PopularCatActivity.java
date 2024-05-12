@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
@@ -25,12 +28,24 @@ public class PopularCatActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPopular ;
     private RecyclerView recyclerViewPopular;
 
+    private ImageView backBtn;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_cat);
 
         initRecylerView();
+
+        // Initialize the back button
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Navigation Bar Controller
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);

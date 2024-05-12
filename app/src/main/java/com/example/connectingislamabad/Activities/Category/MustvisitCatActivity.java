@@ -8,41 +8,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
-import com.example.connectingislamabad.Adapters.FoodCatAdapter;
 import com.example.connectingislamabad.Adapters.MuseumCatAdapter;
-import com.example.connectingislamabad.Domains.FoodCatDomain;
 import com.example.connectingislamabad.Domains.MuseumCatDomain;
 import com.example.connectingislamabad.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class MuseumCatActivity extends AppCompatActivity {
+public class MustvisitCatActivity extends AppCompatActivity {
 
-    private RecyclerView.Adapter adapterMuseumCat ;
-    private RecyclerView recyclerViewMuseumCat;
-    private ImageView backBtn;
+    private RecyclerView.Adapter adapterMustvisitCat ;
+    private RecyclerView recyclerViewMustvisitCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_museum_cat);
-
+        setContentView(R.layout.activity_mustvisit_cat);
         initRecyclerView();
-
-
-        // Initialize the back button
-        backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
 
         // Navigation Bar Controller
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
@@ -86,20 +70,20 @@ public class MuseumCatActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
 
-        ArrayList<MuseumCatDomain> museumcatList = new ArrayList<>();
+        ArrayList<MuseumCatDomain> mustvisitcatList = new ArrayList<>();
 
-        museumcatList.add(new MuseumCatDomain("The Islamabad Museum","museum_isb","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Supreme Court","museum_supreme","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Pakistan Museum of Natural Histroy","museum_natual","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Pakistan Monument Museum","museum_monument","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("National Insect Museum","museum_insect","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Lok Virsa","museum_lokvirsa","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("Faisal Masjid","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("F9 Park","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("Sd","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("Pakistan Monument Museum","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("National Insect Museum","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        mustvisitcatList.add(new MuseumCatDomain("Lok Virsa","route_1","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
 
 
-        recyclerViewMuseumCat = findViewById(R.id.view_museum_cat);
-        recyclerViewMuseumCat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerViewMustvisitCat = findViewById(R.id.view_mustvisit_cat);
+        recyclerViewMustvisitCat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        adapterMuseumCat = new MuseumCatAdapter(museumcatList);
-        recyclerViewMuseumCat.setAdapter(adapterMuseumCat);
+        adapterMustvisitCat = new MuseumCatAdapter(mustvisitcatList);
+        recyclerViewMustvisitCat.setAdapter(adapterMustvisitCat);
     }
 }

@@ -14,7 +14,9 @@ public class FoodCatDomain implements Serializable {
     private String descriptionTxt;
     private String food_pic;
 
-    public FoodCatDomain(String titleTxt, String picImg, String locationTxt, String ratingTxt, String dineTxt, String typeTxt, String wifiTxt, String descriptionTxt, String food_pic) {
+    private String direction_btn;
+
+    public FoodCatDomain(String titleTxt, String picImg, String locationTxt, String ratingTxt, String dineTxt, String typeTxt, String wifiTxt, String descriptionTxt, String food_pic, String direction_btn) {
         this.titleTxt = titleTxt;
         this.picImg = picImg;
         this.locationTxt = locationTxt;
@@ -24,6 +26,7 @@ public class FoodCatDomain implements Serializable {
         this.wifiTxt = wifiTxt;
         this.descriptionTxt = descriptionTxt;
         this.food_pic = food_pic;
+        this.direction_btn = direction_btn;
     }
 
     public String getTitleTxt() {
@@ -96,5 +99,13 @@ public class FoodCatDomain implements Serializable {
 
     public void setFood_pic(String food_pic) {
         this.food_pic = food_pic;
+    }
+
+    public String getDirection_btn() {
+        return direction_btn;
+    }
+
+    public void setDirection_btn(String direction_btn) {
+        this.direction_btn = direction_btn;
     }
 }
