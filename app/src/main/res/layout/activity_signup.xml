@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Authentication.SignUp.SignupActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome "
+            android:textSize="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/ConnectingIsb"
+            android:layout_below="@+id/header_title"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Connnecting Islamabad"
+            android:textSize="28dp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/fillForm"
+            android:layout_below="@+id/ConnectingIsb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Fill the details to create account"
+            android:textColor="@color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/nameForm"
+            android:layout_below="@id/fillForm"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:hint="Name"
+            android:textColorHint="@color/black"
+            android:background="@drawable/stoke_background"
+            android:drawableRight="@drawable/person_icon"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/emailForm"
+            android:layout_below="@id/nameForm"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:drawablePadding="15dp"
+            android:hint="Email"
+            android:textColorHint="@color/black"
+            android:background="@drawable/stoke_background"
+            android:drawableRight="@drawable/mail_icon"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/passwordForm"
+            android:layout_below="@id/emailForm"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/black"
+            android:background="@drawable/stoke_background"
+            android:drawableRight="@drawable/password_icon"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@+id/passwordForm"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:background="@drawable/background_orange"
+            android:hint="Sign Up"
+            android:textColorHint="@color/white"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
