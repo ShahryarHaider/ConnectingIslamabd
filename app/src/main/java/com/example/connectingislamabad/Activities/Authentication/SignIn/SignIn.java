@@ -15,22 +15,23 @@ public class SignIn {
     }
 
     public boolean signIn(String email, String password) {
+        DatabaseHelper databaseHelper = new DatabaseHelper();
         boolean isAuthenticated;
         try (Connection connection = databaseHelper.connect()) {
             String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-            isAuthenticated = false;
-            try {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            isAuthenticated = true;
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setString(1, email);
                 preparedStatement.setString(2, password);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                isAuthenticated = resultSet.next();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    isAuthenticated = resultSet.next();
+                }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            isAuthenticated = false; // Handle error
         }
         return isAuthenticated;
     }
+
 }

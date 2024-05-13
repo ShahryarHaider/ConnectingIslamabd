@@ -88,12 +88,30 @@ public class MuseumCatActivity extends AppCompatActivity {
 
         ArrayList<MuseumCatDomain> museumcatList = new ArrayList<>();
 
-        museumcatList.add(new MuseumCatDomain("The Islamabad Museum","museum_isb","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Supreme Court","museum_supreme","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Pakistan Museum of Natural Histroy","museum_natual","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Pakistan Monument Museum","museum_monument","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("National Insect Museum","museum_insect","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
-        museumcatList.add(new MuseumCatDomain("Lok Virsa","museum_lokvirsa","ss","ss","ss","ss","ss","sx","se","https://maps.app.goo.gl/sUVw65Ys8Y7ZMHkL8"));
+        museumcatList.add(new MuseumCatDomain("The Islamabad Museum","museum_isb","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: The Islamabad Museum, also known as the Pakistan Monument Museum, is a window into the soul of the city. It captures the essence of Islamabad’s development, its people, and its vision for the future. The museum features models, photographs, and exhibits that showcase the capital’s master plan and its role in the modern world1.\n" +
+                        "Famous For: Depicting the history of Islamabad, from ancient times to the present day",
+                "https://maps.app.goo.gl/X7SeBZUW9XG2W62M8\n"));
+        museumcatList.add(new MuseumCatDomain("Supreme Court Museum","museum_supreme","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: The Supreme Court Museum serves as an invaluable repository, preserving the judicial history of both pre- and post-Independence eras. It houses fine arts, oral histories, photographs, personal belongings of Honorable Judges and Chief Justices, and an archival collection of rare documents2.\n" +
+                        "Famous For: Showcasing the evolution of the judiciary in Pakistan.",
+                "https://maps.app.goo.gl/H3f2DD5KQir7vDUK6"));
+        museumcatList.add(new MuseumCatDomain("Pakistan Museum of Natural Histroy","museum_natual","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: Established in 1976, PMNH is a public natural history museum situated in Islamabad. Its exhibits and galleries provide information about the ecology, geology, and paleontology of Pakistan. The museum houses over 35 million specimens, making it one of the largest entomological collections globally34.\n" +
+                        "Famous For: Diverse insect specimens and research on taxonomy, life history, and evolutionary history.",
+                "https://maps.app.goo.gl/8JS2BVnXUhD7r8Xy6"));
+        museumcatList.add(new MuseumCatDomain("Pakistan Monument Museum","museum_monument","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: The Pakistan Monument, located on the western Shakarparian Hills, symbolizes unity among the Pakistani people. The monument’s four large petals represent the main cultures (Punjabi, Baloch, Sindhi, and Pakhtun), while the smaller petals represent minorities, Azad Kashmir, and Gilgit-Baltistan. The museum adjacent to the monument depicts ancient civilization, freedom struggle, and major achievements of Pakistan56.\n" +
+                        "Famous For: Commemorating sacrifices for a better tomorrow.",
+                "https://maps.app.goo.gl/qysFGZPWkRfzfeyg7"));
+        museumcatList.add(new MuseumCatDomain("National Insect Museum","museum_insect","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: While not specifically located in Islamabad, the Smithsonian National Museum of Natural History’s entomology collection is one of the largest globally, with over 35 million specimens. It contributes to research on insects, arachnids, and myriapods, emphasizing taxonomy, life history, and evolutionary relationships4.\n" +
+                        "Famous For: Vast insect diversity and scientific research.",
+                "https://maps.app.goo.gl/s9BtdT1zVV6KtKiU7"));
+        museumcatList.add(new MuseumCatDomain("Lok Virsa Heritage Museum","museum_lokvirsa","ISB","4.5","Top Rated","Shopping","Top Place","F9",
+                "Description: The Lok Virsa Museum, also known as the Heritage Museum, showcases living cultures of Pakistan. Located on the Shakarparian Hills, it features artifacts, traditional clothes, woodwork, and paintings. The museum celebrates Pakistan’s rich heritage and cultural diversity7.\n" +
+                        "Famous For: Representing Pakistan’s diverse cultural traditions.",
+                "https://maps.app.goo.gl/ywEP8vKpbG1HdMk17"));
 
 
         recyclerViewMuseumCat = findViewById(R.id.view_museum_cat);

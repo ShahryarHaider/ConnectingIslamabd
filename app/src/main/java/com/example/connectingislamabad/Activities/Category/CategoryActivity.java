@@ -65,7 +65,7 @@ public class CategoryActivity extends AppCompatActivity {
         shopping_Category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CategoryActivity.this,MuseumCatActivity.class));
+                startActivity(new Intent(CategoryActivity.this,MarketCatActivity.class));
             }
         });
 

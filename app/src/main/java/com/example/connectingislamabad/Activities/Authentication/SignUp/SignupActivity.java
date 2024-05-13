@@ -40,12 +40,11 @@ public class SignupActivity extends AppCompatActivity {
 
 
     private void signUp() {
-        String name = nameEditText.getText().toString();
-        String email = emailEditText.getText().toString();
-        int password = Integer.parseInt(passwordEditText.getText().toString());
+        String name = String.valueOf(nameEditText.getText());
+        String email = String.valueOf(emailEditText.getText());
+        String password = String.valueOf(passwordEditText.getText());
 
         DatabaseHelper databaseHelper = new DatabaseHelper();
-        boolean success = databaseHelper.signUp(name, email, String.valueOf(password));
 
         if (success) {
             Toast.makeText(this, "Sign-up successful!", Toast.LENGTH_SHORT).show();

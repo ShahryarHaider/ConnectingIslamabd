@@ -11,6 +11,7 @@ import com.example.connectingislamabad.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ public class SigninActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
 
+    private Button signinButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +31,18 @@ public class SigninActivity extends AppCompatActivity {
 
         emailEditText = findViewById(R.id.emailForm);
         passwordEditText = findViewById(R.id.passwordForm);
+        signinButton = findViewById(R.id.signinButton);
+
+        signinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+
     }
 
-    public void signIn(View view) {
+    public void signIn() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
