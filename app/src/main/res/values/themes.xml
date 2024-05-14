@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ConnectingIslamabad" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Base.Theme.ConnectingIslamabad" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- Primary Color  -->>
         <item name="android:statusBarColor">#ffae42</item>

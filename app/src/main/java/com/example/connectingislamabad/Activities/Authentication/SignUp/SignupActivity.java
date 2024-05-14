@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.connectingislamabad.Activities.Database.DatabaseHelper;
-import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.R;
 
 public class SignupActivity extends AppCompatActivity {
@@ -30,27 +29,14 @@ public class SignupActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.passwordForm);
         signupButton = findViewById(R.id.signupButton);
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signUp();
-            }
-        });
+        signupButton.setOnClickListener(view -> signUp());
     }
 
-
     private void signUp() {
-        String name = String.valueOf(nameEditText.getText());
-        String email = String.valueOf(emailEditText.getText());
-        String password = String.valueOf(passwordEditText.getText());
-
-        DatabaseHelper databaseHelper = new DatabaseHelper();
-
-        if (success) {
-            Toast.makeText(this, "Sign-up successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
-        } else {
-            Toast.makeText(this, "Sign-up failed. Please try again.", Toast.LENGTH_SHORT).show();
-        }
+        String name = nameEditText.getText().toString();
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        databaseHelper.signUp(name, email, password);
     }
 }

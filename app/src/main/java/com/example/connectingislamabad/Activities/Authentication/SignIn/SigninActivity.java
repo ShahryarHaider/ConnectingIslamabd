@@ -36,25 +36,25 @@ public class SigninActivity extends AppCompatActivity {
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+//                signIn();
             }
         });
 
     }
 
-    public void signIn() {
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-
-        DatabaseHelper databaseHelper = new DatabaseHelper();
-        SignIn signIn = new SignIn(databaseHelper);
-        boolean isAuthenticated = signIn.signIn(email, password);
-
-        if (isAuthenticated) {
-            Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
-        } else {
-            Toast.makeText(this, "Sign-in failed. Please check your email and password.", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    public void signIn() {
+//        String email = emailEditText.getText().toString();
+//        String password = passwordEditText.getText().toString();
+//
+//        DatabaseHelper databaseHelper = new DatabaseHelper();
+//        SignIn signIn = new SignIn(databaseHelper);
+//        boolean isAuthenticated = signIn.signIn(email, password);
+//
+//        if (isAuthenticated) {
+//            Toast.makeText(this, "Sign-in successful!", Toast.LENGTH_SHORT).show();
+//            startActivity(new Intent(this, MainActivity.class));
+//        } else {
+//            Toast.makeText(this, "Sign-in failed. Please check your email and password.", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }
