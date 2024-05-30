@@ -23,8 +23,6 @@ public class SignUp {
                 preparedStatement.setString(3, password);
                 preparedStatement.executeUpdate();
 
-                //Checks
-                System.out.println("in Database");
 
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.example.connectingislamabad.Activities.Database;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ public class DatabaseHelper {
         this.context = context;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void signUp(String name, String email, String password) {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
@@ -53,9 +55,9 @@ public class DatabaseHelper {
     }
 
     public Connection connect() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/connecting";
+        String url = "jdbc:postgresql://localhost:5433/postgres";
         String username = "postgres";
-        String password = "root";
+        String password = "123";
         return DriverManager.getConnection(url, username, password);
     }
 }

@@ -5,6 +5,8 @@ import static androidx.recyclerview.widget.RecyclerView.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connectingislamabad.Activities.Category.CategoryActivity;
+import com.example.connectingislamabad.Activities.Category.PopularCatActivity;
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
 import com.example.connectingislamabad.Adapters.CategoryAdapter;
@@ -28,10 +31,24 @@ public class MainActivity extends AppCompatActivity {
     private Adapter adapterPopular ;
     private RecyclerView recyclerViewPopular, recyclerViewCategory;
 
+    private TextView textView_SeeAll_Popular;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView seeAllPopularTextView = findViewById(R.id.textView_SeeAll_Popular);
+
+        // Set an OnClickListener on it
+        seeAllPopularTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the PopularCatActivity
+                Intent intent = new Intent(MainActivity.this, PopularCatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Calling Recycler View
         initRecylerView();

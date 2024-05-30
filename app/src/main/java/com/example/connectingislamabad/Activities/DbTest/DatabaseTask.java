@@ -7,53 +7,46 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class DatabaseTask extends AsyncTask<Void, Void, Void> {
 
     private static final String TAG = "DatabaseTask";
 
+    private static final String URL = "jdbc:postgresql://localhost:5432/connecting";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "root";
+
     @Override
     protected Void doInBackground(Void... voids) {
-        Connection connection = null;
         try {
-            System.out.println("outSide DB CLass");
-
-            // Load the PostgreSQL JDBC driver class
             Class.forName("org.postgresql.Driver");
+            Log.d(TAG, "Driver loaded");
 
-            System.out.println("In Side DB CLass");
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            Log.d(TAG, "Connected to database");
 
-            // Connect to the PostgreSQL database
-            String url = "jdbc:postgresql:localhost:5432/connecting";
-            String username = "postgres";
-            String password = "root";
-            connection = DriverManager.getConnection(url, username, password);
-
-            // Create a table
-            String createTableSQL = "CREATE TABLE IF NOT EXISTS test_table ("
-                    + "id SERIAL PRIMARY KEY,"
-                    + "name VARCHAR(255) NOT NULL,"
-                    + "age INT"
-                    + ")";
             Statement statement = connection.createStatement();
-            statement.execute(createTableSQL);
-            Log.d(TAG, "Table created successfully.");
+            ResultSet resultSet = statement.executeQuery("SELECT VERSION()");
 
-        } catch (ClassNotFoundException e) {
-            Log.e(TAG, "PostgreSQL JDBC driver not found.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            Log.e(TAG, "Error executing SQL command.");
-            e.printStackTrace();
-        } finally {
-            // Close the connection
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                Log.e(TAG, "Error closing connection.");
-                e.printStackTrace();
+            if (resultSet.next()) {
+                String version = resultSet.getString(1);
+                Log.d(TAG, "Database version: " + version);
             }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            Log.e(TAG, "Driver not found", e);
+        } catch (SQLException e) {
+            Log.e(TAG, "SQL Exception", e);
         }
         return null;
     }

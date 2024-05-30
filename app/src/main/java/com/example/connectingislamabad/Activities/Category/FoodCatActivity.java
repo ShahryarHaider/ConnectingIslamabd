@@ -139,6 +139,16 @@ public class FoodCatActivity extends AppCompatActivity {
                 "food_ox",
                 "https://maps.app.goo.gl/vZScLsoEece6tffd6"));
 
+//        foodcatList.add(new FoodCatDomain("Test",
+//                "food_ox", "F7", "4.7",
+//                "Dine In", "Fast Food", "No",
+//                "Description: Test is a steakhouse that serves juicy steaks, grilled meats, and seafood. Their cozy ambiance and quality cuts make it a favorite for meat lovers.\n" +
+//                        "Famous For: Steaks, grilled dishes, and seafood.\n" +
+//                        "Locations: OX & Grill is located in F-7 Markaz",
+//                "food_ox",
+//                "https://maps.app.goo.gl/vZScLsoEece6tffd6"));
+
+
 
         recyclerViewFoodCat = findViewById(R.id.view_food_cat);
         recyclerViewFoodCat.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

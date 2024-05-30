@@ -1,56 +1,65 @@
 package com.example.connectingislamabad.Activities.DbTest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.database.SQLException;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.connectingislamabad.R;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.widget.Toast;
-
+import java.sql.SQLException;
 
 public class TestDB extends AppCompatActivity {
 
-    private EditText nameEditText;
+    private EditText editTextHostname, editTextPort, editTextDatabaseName, editTextUsername, editTextPassword;
+    private Button buttonTestConnection;
 
-    private Button signupButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_db);
-        System.out.println("Run");
 
-        new DatabaseOperation().execute();
+        editTextHostname = findViewById(R.id.editTextHostname);
+        // Initialize other EditText fields
+        editTextPort = findViewById(R.id.editTextPort);
+        editTextDatabaseName = findViewById(R.id.editTextDatabaseName);
+        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
+        buttonTestConnection = findViewById(R.id.buttonTestConnection);
+        buttonTestConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testDatabaseConnection();
+            }
+        });
     }
 
-    private class DatabaseOperation extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                Connection conn = DatabaseConnection.getConnection();
-                // Perform your database operations here
-                // For example, execute a query
-                 conn.close(); // Re                member to close the connection when done
-            } catch (SQLException | java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
+    private void testDatabaseConnection() {
+        String hostname = editTextHostname.getText().toString();
+        String port = editTextPort.getText().toString();
+        String databaseName = editTextDatabaseName.getText().toString();
+        String username = editTextUsername.getText().toString();
+        String password = editTextPassword.getText().toString();
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Toast.makeText(TestDB.this, "Database operation completed", Toast.LENGTH_SHORT).show();
+        String jdbcUrl = "jdbc:postgresql://" + hostname + ":" + port + "/" + databaseName;
+
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+            showMessage("Connected to PostgreSQL database!");
+            connection.close();
+        } catch (SQLException e) {
+            showMessage("Failed to connect to PostgreSQL database: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    private void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
-

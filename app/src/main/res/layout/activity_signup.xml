@@ -49,7 +49,7 @@
             />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/nameForm"
+            android:id="@+id/name"
             android:layout_below="@id/fillForm"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -64,8 +64,8 @@
             android:drawableRight="@drawable/person_icon"/>
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/emailForm"
-            android:layout_below="@id/nameForm"
+            android:id="@+id/email"
+            android:layout_below="@id/name"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
@@ -79,8 +79,8 @@
             android:drawableRight="@drawable/mail_icon"/>
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/passwordForm"
-            android:layout_below="@id/emailForm"
+            android:id="@+id/password"
+            android:layout_below="@id/email"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
@@ -95,16 +95,16 @@
             android:drawableRight="@drawable/password_icon"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signupButton"
+            android:id="@+id/signupBtn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_below="@+id/passwordForm"
+            android:layout_below="@+id/password"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:padding="15dp"
             android:background="@drawable/background_orange"
-            android:hint="Sign Up"
+            android:hint="Sikp Up"
             android:textColorHint="@color/white"
             android:textStyle="bold" />
 
