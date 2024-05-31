@@ -31,14 +31,22 @@ public class MainActivity extends AppCompatActivity {
     private Adapter adapterPopular ;
     private RecyclerView recyclerViewPopular, recyclerViewCategory;
 
-    private TextView textView_SeeAll_Popular;
+    private TextView textView_SeeAll_Popular, o_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // initialize
         TextView seeAllPopularTextView = findViewById(R.id.textView_SeeAll_Popular);
+        o_name = findViewById(R.id.name);
+
+        // Get Intent Extra
+        String name = getIntent().getStringExtra("name");
+
+        // Set Text View ( Name ) From User Details
+        o_name.setText(name);
 
         // Set an OnClickListener on it
         seeAllPopularTextView.setOnClickListener(new View.OnClickListener() {

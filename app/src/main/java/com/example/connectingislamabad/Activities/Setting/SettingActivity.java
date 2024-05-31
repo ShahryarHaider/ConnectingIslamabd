@@ -1,110 +1,80 @@
 package com.example.connectingislamabad.Activities.Setting;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.example.connectingislamabad.Activities.Main.MainActivity;
-import com.example.connectingislamabad.Activities.Transport.TransportActivity;
-import com.example.connectingislamabad.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
+import com.example.connectingislamabad.R;
 
 public class SettingActivity extends AppCompatActivity {
 
     private Switch notificationSwitch;
-    private Button saveButton;
+    private Button signoutButton;
+    private Button editProfileButton;
+
+    private TextView o_name , o_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        // Navigation Bar Controller
-        BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.setting_bottom);
-
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.home_bottom) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.category_bottom) {
-                    // Handle navigation to category
-                    // Start the CategoryActivity
-
-                    return true;
-                } else if (item.getItemId() == R.id.transport_bottom) {
-                    // Handle navigation to transport
-                    // Start the TransportActivity
-                    startActivity(new Intent(getApplicationContext(), TransportActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.setting_bottom) {
-                    // Handle navigation to settings
-                    // Start the SettingsActivity
-                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
-
-        // Initialize views
+        // Intialize
         notificationSwitch = findViewById(R.id.notification_switch);
-        saveButton = findViewById(R.id.save_button);
+        signoutButton = findViewById(R.id.signout_button);
+        editProfileButton = findViewById(R.id.edit_profile_button);
 
-        // Load saved settings or initialize default settings
-        loadSettings();
+        // Retrieve passed data
+//        Intent intent = getIntent();
+//        String names = intent.getStringExtra("name");
+//        String emails = intent.getStringExtra("email");
 
-        // Set listener for the switch
-        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Handle notification switch state change
-            }
+//        // Display user information
+//        if (names != null && emails != null) {
+//            o_name.setText("Name: " + names);
+//            o_email.setText("Email: " + emails);
+//        }
+
+        // Load initial switch state (this is a placeholder, replace with actual logic)
+        boolean isNotificationsEnabled = loadNotificationPreference();
+        notificationSwitch.setChecked(isNotificationsEnabled);
+
+        notificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Save the new preference (this is a placeholder, replace with actual logic)
+            saveNotificationPreference(isChecked);
+            Toast.makeText(SettingActivity.this, isChecked ? "Notifications Enabled" : "Notifications Disabled", Toast.LENGTH_SHORT).show();
         });
 
-        // Set listener for the save button
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSettings();
-            }
+        signoutButton.setOnClickListener(v -> {
+            // Handle sign out logic here
+            Toast.makeText(SettingActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
+            // Optionally, redirect to a login activity or clear user session
+            Intent intent = new Intent(SettingActivity.this, SigninActivity.class);
+            startActivity(intent);
+            finish(); // Close the current activity
+        });
+
+        editProfileButton.setOnClickListener(v -> {
+            // Handle edit profile logic here
+            Toast.makeText(SettingActivity.this, "Edit Profile Clicked", Toast.LENGTH_SHORT).show();
+            // Optionally, redirect to an edit profile activity
         });
     }
 
-    private void loadSettings() {
-        // Load saved settings from SharedPreferences or other storage
-        // For demonstration purposes, we'll just set default values
-        boolean enableNotifications = true; // Example: Default to true
-        notificationSwitch.setChecked(enableNotifications);
+    private boolean loadNotificationPreference() {
+        // Placeholder for loading the notification preference
+        // Replace with actual logic to load from SharedPreferences or other storage
+        return true;
     }
 
-    private void saveSettings() {
-        // Save current settings to SharedPreferences or other storage
-        boolean enableNotifications = notificationSwitch.isChecked();
-
-        // For demonstration purposes, we'll just show a toast message
-        String message = enableNotifications ? "Notifications enabled" : "Notifications disabled";
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void saveNotificationPreference(boolean isEnabled) {
+        // Placeholder for saving the notification preference
+        // Replace with actual logic to save to SharedPreferences or other storage
     }
 }

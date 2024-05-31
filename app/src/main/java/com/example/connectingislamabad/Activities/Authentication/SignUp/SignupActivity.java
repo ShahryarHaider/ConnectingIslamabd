@@ -1,14 +1,11 @@
 package com.example.connectingislamabad.Activities.Authentication.SignUp;
 
-import static android.app.ProgressDialog.show;
-
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,87 +18,117 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.connectingislamabad.Activities.Authentication.Security.CustomNetworkSecurityPolicy;
-import com.example.connectingislamabad.Activities.RetroFit.ApiClient;
-import com.example.connectingislamabad.Activities.RetroFit.ApiService;
-import com.example.connectingislamabad.Activities.RetroFit.User;
-import com.example.connectingislamabad.Activities.RetroFit.UserRequestBody;
-import com.example.connectingislamabad.Activities.RetroFit.UserService;
+import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
 import com.example.connectingislamabad.R;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-
-import android.security.NetworkSecurityPolicy;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText nameEt, emailEt, passwordEt;
+    private EditText nameEt, emailEt, passwordEt, confirmpasswordEt;
+    private TextView signInRedirect;
     private Button submitButton;
-    private ApiService apiService;
-    private UserService userService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-//                    .detectCleartextNetwork()
-//                    .penaltyLog()
-//                    .build());
-//
-//            if (!NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted()) {
-//                Log.w("NetworkSecurity", "Cleartext traffic not permitted");
-//            }
-//        }
-
-
-
-
-
+        signInRedirect = findViewById(R.id.signInRedirect);
 
         nameEt = findViewById(R.id.name);
         emailEt = findViewById(R.id.email);
         passwordEt = findViewById(R.id.password); // Assuming you have a password EditText with id 'password'
+        confirmpasswordEt = findViewById(R.id.confirmpassword);
         submitButton = findViewById(R.id.signupBtn);
 
-
-        userService = ApiClient.getRetrofitInstance().create(UserService.class);
+        // On Click on Sign up Button
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String name = nameEt.getText().toString();
-//                String email = emailEt.getText().toString();
-//                String password = passwordEt.getText().toString();
-//
-//                if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-//                    Toast.makeText(SignupActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (validateForm()) {
+                    processFormFields();
+                }
+            }
+        });
 
-//                User newUser = new User(name, email, password);
-                processFormFields();
+        // TextView  Redirect to SignIn Class
+        signInRedirect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
+                startActivity(intent);
             }
         });
     }
 
+    // Form validation
+    private boolean validateForm() {
+        String name = nameEt.getText().toString().trim();
+        String email = emailEt.getText().toString().trim();
+        String password = passwordEt.getText().toString().trim();
+        String confirmPassword = confirmpasswordEt.getText().toString().trim();
+
+        if (name.isEmpty()) {
+            nameEt.setError("Name is required");
+            nameEt.requestFocus();
+            return false;
+        }
+
+        if (!name.matches("[a-zA-Z ]+")) {
+            nameEt.setError("Name can only contain letters and spaces");
+            nameEt.requestFocus();
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            emailEt.setError("Email is required");
+            emailEt.requestFocus();
+            return false;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEt.setError("Please enter a valid email");
+            emailEt.requestFocus();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            passwordEt.setError("Password is required");
+            passwordEt.requestFocus();
+            return false;
+        }
+
+        if (password.length() < 6) {
+            passwordEt.setError("Password should be at least 6 characters long");
+            passwordEt.requestFocus();
+            return false;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            confirmpasswordEt.setError("Confirm Password is required");
+            confirmpasswordEt.requestFocus();
+            return false;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            confirmpasswordEt.setError("Passwords do not match");
+            confirmpasswordEt.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    //Calling Local Ip to Insert Into Database
     private void processFormFields() {
         // Request To Server
         RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
         // URL to post at
-        String url = "http://192.168.10.13:8080/api/v2/user/register"; // For emulator
+        String url = "http://192.168.10.13:8080/api/v2/user/register"; // Use your server's IP address
 
         // String Request Object
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -124,55 +151,12 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", nameEt.getText().toString());
-                params.put("email", emailEt.getText().toString());
-                params.put("password", passwordEt.getText().toString());
+                params.put("name", nameEt.getText().toString().trim());
+                params.put("email", emailEt.getText().toString().trim());
+                params.put("password", passwordEt.getText().toString().trim());
                 return params;
             }
         };
         queue.add(stringRequest);
     }
-
-
-//    private void createUser(User user) {
-//        Call<User> call = userService.registerUser(user);
-//        call.enqueue(new Callback<User>() {
-//            @Override
-//            public void onResponse(Call<User> call, Response<User> response) {
-//                if (response.isSuccessful()) {
-//                    // User created successfully
-//                } else {
-//                    try {
-//                        Log.e("SignupActivity", "Failed to create user: " + response.errorBody().string());
-//                    } catch (IOException e) {
-//                        Log.e("SignupActivity", "Error reading error body", e);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<User> call, Throwable t) {
-//                try {
-//                    if (call.isExecuted()) {
-//                        Response<User> executionResult = call.execute();
-//                        if (executionResult.errorBody()!= null) {
-//                            InputStream inputStream = executionResult.errorBody().byteStream();
-//                            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//                            StringBuilder stringBuilder = new StringBuilder();
-//                            String line;
-//                            while ((line = bufferedReader.readLine())!= null) {
-//                                stringBuilder.append(line);
-//                            }
-//                            Log.e("SignupActivity", "Error response: " + stringBuilder.toString());
-//                        }
-//                    }
-//                } catch (IOException e) {
-//                    Log.e("SignupActivity", "Error reading error body", e);
-//                }
-//                Toast.makeText(SignupActivity.this, "Network error occurred!", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            // ...
-//        });
-//    }
 }
