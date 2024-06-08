@@ -20,47 +20,40 @@ import com.example.connectingislamabad.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class PopularAdapter  extends RecyclerView.Adapter<PopularAdapter.ViewHolder>{
-    ArrayList<PopularDomain> items;
-    DecimalFormat formatter;
+public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
+    private ArrayList<PopularDomain> items;
+    private DecimalFormat formatter;
 
-    //Constructor Of ArrayList
     public PopularAdapter(ArrayList<PopularDomain> items) {
         this.items = items;
-
-        formatter=new DecimalFormat("###,###,###,###");
+        formatter = new DecimalFormat("###,###,###,###");
     }
 
     @NonNull
     @Override
-    public PopularAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate= LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular,parent,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular, parent, false);
         return new ViewHolder(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PopularAdapter.ViewHolder holder, int position) {
-
-        //Holder of Txt Data only
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
         holder.locationTxt.setText(items.get(position).getLocation());
-        holder.ratingTxt.setText(" "+items.get(position).getRating());
+        holder.ratingTxt.setText(" " + items.get(position).getRating());
 
-        int drawableResId=holder.itemView.getResources().getIdentifier(items.get(position).getPic(),
-                "drawable",holder.itemView.getContext().getPackageName());
+        int drawableResId = holder.itemView.getResources().getIdentifier(items.get(position).getPic(),
+                "drawable", holder.itemView.getContext().getPackageName());
 
         Glide.with(holder.itemView.getContext())
                 .load(drawableResId)
-                .transform(new CenterCrop(),new GranularRoundedCorners(40,40,40,40))
+                .transform(new CenterCrop(), new GranularRoundedCorners(40, 40, 40, 40))
                 .into(holder.pic);
 
-        //Fetch Info Fo DetailAcitvity Class
-        holder.itemView.setOnClickListener(v ->{
-            {
-                Intent intent = new Intent (holder.itemView.getContext(), DetailActivity.class);
-                intent.putExtra("object",items.get(position));
-                holder.itemView.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
+            intent.putExtra("object", (CharSequence) items.get(position));
+            holder.itemView.getContext().startActivity(intent);
         });
     }
 
@@ -70,16 +63,16 @@ public class PopularAdapter  extends RecyclerView.Adapter<PopularAdapter.ViewHol
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTxt,locationTxt,ratingTxt;
+        TextView titleTxt, locationTxt, ratingTxt;
         ImageView pic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            titleTxt=itemView.findViewById(R.id.titleTxt);
-            locationTxt=itemView.findViewById(R.id.locationTxt);
-            ratingTxt=itemView.findViewById(R.id.ratingTxt);
-            pic=itemView.findViewById(R.id.picImg);
+            titleTxt = itemView.findViewById(R.id.titleTxt);
+            locationTxt = itemView.findViewById(R.id.locationTxt);
+            ratingTxt = itemView.findViewById(R.id.ratingTxt);
+            pic = itemView.findViewById(R.id.picImg);
         }
     }
 }

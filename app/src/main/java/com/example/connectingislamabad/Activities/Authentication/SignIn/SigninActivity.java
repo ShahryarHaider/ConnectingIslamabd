@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class SigninActivity extends AppCompatActivity {
     private EditText emailEditText, passwordEditText;
     private Button signinButton;
 
+    private TextView skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class SigninActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailForm);
         passwordEditText = findViewById(R.id.passwordForm);
         signinButton = findViewById(R.id.signinButton);
+        skip = findViewById(R.id.skip);
 
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +51,23 @@ public class SigninActivity extends AppCompatActivity {
                 }
             }
         });
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an intent to navigate to MainActivity
+                Intent mainActivityIntent = new Intent(SigninActivity.this, MainActivity.class);
+
+                // Start the MainActivity
+                startActivity(mainActivityIntent);
+
+                // Finish the current activity if needed
+                finish();
+            }
+        });
+
     }
 
-    // Form validation
     private boolean validateForm() {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
@@ -82,28 +99,22 @@ public class SigninActivity extends AppCompatActivity {
         return true;
     }
 
-    // Method to handle login logic
     private void login() {
-        // Request To Server
         RequestQueue queue = Volley.newRequestQueue(SigninActivity.this);
+        String url = "http://192.168.10.13:8080/api/v2/user/login";
 
-        // URL to post at
-        String url = "http://192.168.10.13:8080/api/v2/user/login"; // Use your server's IP address
-
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("email",emailEditText.getText().toString());
-        params.put("password",passwordEditText.getText().toString());
+        HashMap<String, String> params = new HashMap<>();
+        params.put("email", emailEditText.getText().toString());
+        params.put("password", passwordEditText.getText().toString());
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Values From Response
-                            String name = (String) response.get("name");
-                            String email = (String) response.get("email");
+                            String name = response.getString("name");
+                            String email = response.getString("email");
 
-                            // Save login state in SharedPreferences
                             SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putBoolean("is_logged_in", true);
@@ -111,28 +122,24 @@ public class SigninActivity extends AppCompatActivity {
                             editor.putString("email", email);
                             editor.apply();
 
-                            // Set Intent Actions
                             Intent mainActivity = new Intent(SigninActivity.this, MainActivity.class);
-                            mainActivity.putExtra("name",name);
-                            mainActivity.putExtra("email",email);
-
+                            mainActivity.putExtra("name", name);
+                            mainActivity.putExtra("email", email);
                             startActivity(mainActivity);
                             finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            System.out.println(e.getMessage());
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                System.out.println(error.getMessage());
                 Toast.makeText(SigninActivity.this, "Unsuccessful: " + error.toString(), Toast.LENGTH_LONG).show();
-
             }
         });
+
         queue.add(jsonObjectRequest);
     }
 }

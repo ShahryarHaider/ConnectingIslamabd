@@ -1,32 +1,36 @@
 package com.example.connectingislamabad.Domains;
 
-import java.io.Serializable;
+import com.example.connectingislamabad.Adapters.Review;
 
-public class PopularDomain implements Serializable {
+import java.util.ArrayList;
+import java.util.List;
 
+public class PopularDomain {
     private String title;
     private String location;
     private String description;
-    //Bed not Required
     private boolean guide;
     private double rating;
+    private List<Review> reviews; // List of reviews
     private String pic;
     private boolean wifi;
     private int price;
 
-    //Constructor
     public PopularDomain(String title, String location, String description, boolean guide, double rating, String pic, boolean wifi, int price) {
         this.title = title;
         this.location = location;
         this.description = description;
         this.guide = guide;
         this.rating = rating;
+        this.reviews = new ArrayList<>(); // Initialize reviews list
         this.pic = pic;
         this.wifi = wifi;
         this.price = price;
     }
 
-    //Getter And Setter
+    // Getters and setters for existing fields
+
+
     public String getTitle() {
         return title;
     }
@@ -67,6 +71,10 @@ public class PopularDomain implements Serializable {
         this.rating = rating;
     }
 
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public String getPic() {
         return pic;
     }
@@ -90,4 +98,20 @@ public class PopularDomain implements Serializable {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview(Review review) {
+        this.reviews.add(review);
+        // Recalculate overall rating when a new review is added
+        double totalRating = 0;
+        for (Review r : reviews) {
+            totalRating += r.getRating();
+        }
+        this.rating = totalRating / reviews.size();
+    }
+
+
 }

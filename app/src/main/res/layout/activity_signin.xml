@@ -12,6 +12,20 @@
 
         <!-- Top Text-->
         <TextView
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/header_title"
+            android:layout_alignEnd="@+id/header_title"
+            android:layout_marginLeft="350dp"
+
+            android:layout_marginTop="20dp"
+            android:text="Skip "
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/header_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

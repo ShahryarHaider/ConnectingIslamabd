@@ -1,6 +1,8 @@
 package com.example.connectingislamabad.Activities.Authentication.SignUp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
+import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.R;
 
 import java.util.HashMap;
@@ -58,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -123,40 +127,59 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     //Calling Local Ip to Insert Into Database
-    private void processFormFields() {
+
         // Request To Server
-        RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
+        private void processFormFields() {
+            // Request To Server
+            RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
-        // URL to post at
-        String url = "http://192.168.10.13:8080/api/v2/user/register"; // Use your server's IP address
+            // URL to post at
+            String url = "http://192.168.10.8:8080/api/v2/user/register";
 
-        // String Request Object
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (response.equalsIgnoreCase("success")) {
-                    nameEt.setText(null);
-                    emailEt.setText(null);
-                    passwordEt.setText(null);
-                    Toast.makeText(SignupActivity.this, "Registration done", Toast.LENGTH_SHORT).show();
+            // String Request Object
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if ("Email already exists".equals(response.trim())) {
+                        emailEt.setError("Email already exists");
+                        emailEt.requestFocus(); // Focus on the email field to prompt the user to fix the error
+                    } else if ("User Registered".equals(response.trim())) {
+                        // Handle successful registration here
+                        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("is_logged_in", true);
+                        editor.apply();
+
+                        // Clear form fields
+                        nameEt.setText(null);
+                        emailEt.setText(null);
+                        passwordEt.setText(null);
+
+                        Toast.makeText(SignupActivity.this, "Registration done", Toast.LENGTH_SHORT).show();
+
+                        // Redirect to MainActivity or any other desired activity
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SignupActivity.this, "Unsuccessful: " + error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", nameEt.getText().toString().trim());
-                params.put("email", emailEt.getText().toString().trim());
-                params.put("password", passwordEt.getText().toString().trim());
-                return params;
-            }
-        };
-        queue.add(stringRequest);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(SignupActivity.this, "Unsuccessful: " + error.toString(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("name", nameEt.getText().toString().trim());
+                    params.put("email", emailEt.getText().toString().trim());
+                    params.put("password", passwordEt.getText().toString().trim());
+                    return params;
+                }
+            };
+            queue.add(stringRequest);
+        }
+
     }
-}
