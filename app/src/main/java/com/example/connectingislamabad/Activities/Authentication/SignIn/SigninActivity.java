@@ -25,14 +25,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SigninActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button signinButton;
-
     private TextView skip;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +54,11 @@ public class SigninActivity extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an intent to navigate to MainActivity
                 Intent mainActivityIntent = new Intent(SigninActivity.this, MainActivity.class);
-
-                // Start the MainActivity
                 startActivity(mainActivityIntent);
-
-                // Finish the current activity if needed
                 finish();
             }
         });
-
     }
 
     private boolean validateForm() {
@@ -101,7 +94,8 @@ public class SigninActivity extends AppCompatActivity {
 
     private void login() {
         RequestQueue queue = Volley.newRequestQueue(SigninActivity.this);
-        String url = "http://192.168.10.13:8080/api/v2/user/login";
+
+        String url = "http://192.168.10.31:8080/api/v2/user/login";
 
         HashMap<String, String> params = new HashMap<>();
         params.put("email", emailEditText.getText().toString());
@@ -112,12 +106,16 @@ public class SigninActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            String token = response.getString("token");
+                            String userId = response.getString("id"); // Adjust according to your actual JSON response
                             String name = response.getString("name");
                             String email = response.getString("email");
 
                             SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putBoolean("is_logged_in", true);
+                            editor.putString("jwt_token", token);
+                            editor.putString("user_id", userId);
                             editor.putString("name", name);
                             editor.putString("email", email);
                             editor.apply();

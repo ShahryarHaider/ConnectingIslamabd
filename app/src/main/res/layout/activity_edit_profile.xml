@@ -12,8 +12,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-
-
         <TextView
             android:id="@+id/ConnectingIsb"
             android:layout_below="@+id/header_title"
@@ -23,10 +21,10 @@
             android:layout_marginRight="20dp"
             android:text="Edit Profile"
             android:textSize="28dp"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
+
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/new_name"
+            android:id="@+id/newName"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
@@ -40,7 +38,7 @@
             android:drawableRight="@drawable/person_icon"/>
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/new_email"
+            android:id="@+id/newEmail"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
@@ -49,13 +47,27 @@
             android:padding="15dp"
             android:drawablePadding="10dp"
             android:hint="Email"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/black"
+            android:background="@drawable/stoke_background"
+            android:drawableRight="@drawable/mail_icon"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/newPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="15dp"
+            android:drawablePadding="10dp"
+            android:hint="Password"
             android:textColorHint="@color/black"
             android:background="@drawable/stoke_background"
             android:drawableRight="@drawable/mail_icon"/>
 
         <Button
-            android:id="@+id/update_button"
+            android:id="@+id/updateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Update Profile"

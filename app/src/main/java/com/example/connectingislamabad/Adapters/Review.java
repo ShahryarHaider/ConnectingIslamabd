@@ -1,39 +1,66 @@
 package com.example.connectingislamabad.Adapters;
 
 public class Review {
-    private String userId;
-    private double rating;
-    private String comment;
 
-    public Review(String userId, double rating, String comment) {
-        this.userId = userId;
-        this.rating = rating;
-        this.comment = comment;
-    }
+    private Long id;
+
+    private Long placeId;
+
+    private Float currentRating;
+
+    private Float sumOfRatings;
+
+    private Integer numberOfRatings;
+
+    // Change userReview to array type
+    private String[] reviews;
 
     // Getters and setters
-
-    public String getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public double getRating() {
-        return rating;
+    public Long getPlaceId() {
+        return placeId;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
     }
 
-    public String getComment() {
-        return comment;
+    public Float getCurrentRating() {
+        return currentRating;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setCurrentRating(Float currentRating) {
+        this.currentRating = currentRating;
+    }
+
+    public Float getSumOfRatings() {
+        return sumOfRatings;
+    }
+
+    public void setSumOfRatings(Float sumOfRatings) {
+        this.sumOfRatings = sumOfRatings;
+    }
+
+    public Integer getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(Integer numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public String[] getReview() {
+        return reviews;
+    }
+
+    public void setReview(String[] Review) {
+        this.reviews = Review;
     }
 }

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        initRecylerView();
+//        initRecylerView();
 
         // Navigation Bar Controller
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
@@ -104,21 +104,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initRecylerView() {
-        ArrayList<PopularDomain> items = new ArrayList<>();
-        items.add(new PopularDomain("Faisal Mosque", "Islamabad", " introduction to Islamabad, Pakistan’s capital city:\n" +
-                "\n" +
-                "Shah Faisal Mosque: This magnificent mosque, named after King Faisal of Saudi Arabia, stands as one of the largest mosques in the world. Its unique design, inspired by a Bedouin tent, is a testament to modern Islamic architecture.\n" +
-                "Margalla Hills National Park: Just outside the city, the Margalla Hills offer breathtaking hiking trails and panoramic views of Islamabad. Daman-e-Koh, a popular viewpoint, provides a stunning vista of the cityscape.\n" +
-                "Lok Virsa Museum: Immerse yourself in Pakistan’s rich cultural heritage at this museum. From traditional crafts to historical artifacts, it’s a treasure trove of knowledge.\n" +
-                "Rawal Lake: A serene escape within the city, Rawal Lake is perfect for picnics, boating, and birdwatching. The surrounding hills add to its natural beauty.",
-                true, 4.9, "pop2", false, 0));
-        items.add(new PopularDomain("Pakistan Monument Museum", "Western Shakarparian", "The Pakistan Monument ...", true, 4.7, "pop1", true, 0));
-        items.add(new PopularDomain("Daman e Koh", "Margala Hills", "The Daman-e-Koh ...", false, 4.9, "pop3", false, 0));
-
-        recyclerViewPopular = findViewById(R.id.view_pop);
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapterPopular = new PopularAdapter(items);
-        recyclerViewPopular.setAdapter(adapterPopular);
-    }
+//    private void initRecylerView() {
+//        ArrayList<PopularDomain> items = new ArrayList<>();
+//        items.add(new PopularDomain("Faisal Mosque", "Islamabad", " introduction to Islamabad, Pakistan’s capital city:\n" +
+//                "\n" +
+//                "Shah Faisal Mosque: This magnificent mosque, named after King Faisal of Saudi Arabia, stands as one of the largest mosques in the world. Its unique design, inspired by a Bedouin tent, is a testament to modern Islamic architecture.\n" +
+//                "Margalla Hills National Park: Just outside the city, the Margalla Hills offer breathtaking hiking trails and panoramic views of Islamabad. Daman-e-Koh, a popular viewpoint, provides a stunning vista of the cityscape.\n" +
+//                "Lok Virsa Museum: Immerse yourself in Pakistan’s rich cultural heritage at this museum. From traditional crafts to historical artifacts, it’s a treasure trove of knowledge.\n" +
+//                "Rawal Lake: A serene escape within the city, Rawal Lake is perfect for picnics, boating, and birdwatching. The surrounding hills add to its natural beauty.",
+//                true, 4.9, "pop2", false, 0));
+//        items.add(new PopularDomain("Pakistan Monument Museum", "Western Shakarparian", "The Pakistan Monument ...", true, 4.7, "pop1", true, 0));
+//        items.add(new PopularDomain("Daman e Koh", "Margala Hills", "The Daman-e-Koh ...", false, 4.9, "pop3", false, 0));
+//
+//        recyclerViewPopular = findViewById(R.id.view_pop);
+//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        adapterPopular = new PopularAdapter(items);
+//        recyclerViewPopular.setAdapter(adapterPopular);
+//    }
 }

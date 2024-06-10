@@ -1,5 +1,6 @@
 package com.example.connectingislamabad.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,67 +12,60 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.GranularRoundedCorners;
-import com.example.connectingislamabad.Activities.Main.DetailActivity;
+import com.example.connectingislamabad.Activities.Category.Detail.DetailPopularCatActivity;
 import com.example.connectingislamabad.Domains.PopularDomain;
 import com.example.connectingislamabad.R;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHolder> {
-    private ArrayList<PopularDomain> items;
-    private DecimalFormat formatter;
 
-    public PopularAdapter(ArrayList<PopularDomain> items) {
-        this.items = items;
-        formatter = new DecimalFormat("###,###,###,###");
+    private List<PopularDomain> popularDomains;
+    private Context context;
+
+    public PopularAdapter(List<PopularDomain> popularDomains) {
+        this.popularDomains = popularDomains;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular, parent, false);
-        return new ViewHolder(inflate);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_popular, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.titleTxt.setText(items.get(position).getTitle());
-        holder.locationTxt.setText(items.get(position).getLocation());
-        holder.ratingTxt.setText(" " + items.get(position).getRating());
+        PopularDomain popularDomain = popularDomains.get(position);
+        holder.title.setText(popularDomain.getTitle());
+        holder.location.setText(popularDomain.getLocation());
+        holder.rating.setText(String.valueOf(popularDomain.getRating()));
 
-        int drawableResId = holder.itemView.getResources().getIdentifier(items.get(position).getPic(),
-                "drawable", holder.itemView.getContext().getPackageName());
-
-        Glide.with(holder.itemView.getContext())
-                .load(drawableResId)
-                .transform(new CenterCrop(), new GranularRoundedCorners(40, 40, 40, 40))
-                .into(holder.pic);
+        int drawableResId = context.getResources().getIdentifier(popularDomain.getPic(), "drawable", context.getPackageName());
+        Glide.with(context).load(drawableResId).into(holder.pic);
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
-            intent.putExtra("object", (CharSequence) items.get(position));
-            holder.itemView.getContext().startActivity(intent);
+            Intent intent = new Intent(context, DetailPopularCatActivity.class);
+            intent.putExtra("object", popularDomain);
+            context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return popularDomains.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTxt, locationTxt, ratingTxt;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView title, location, rating;
         ImageView pic;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            titleTxt = itemView.findViewById(R.id.titleTxt);
-            locationTxt = itemView.findViewById(R.id.locationTxt);
-            ratingTxt = itemView.findViewById(R.id.ratingTxt);
+            title = itemView.findViewById(R.id.titleTxt);
+            location = itemView.findViewById(R.id.locationTxt);
+            rating = itemView.findViewById(R.id.ratingTxt);
             pic = itemView.findViewById(R.id.picImg);
         }
     }

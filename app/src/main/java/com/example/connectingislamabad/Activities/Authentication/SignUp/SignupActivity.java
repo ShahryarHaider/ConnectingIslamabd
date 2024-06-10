@@ -64,6 +64,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(intent);
+
             }
         });
     }
@@ -134,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
             // URL to post at
-            String url = "http://192.168.10.8:8080/api/v2/user/register";
+            String url = "http://192.168.10.31:8080/api/v2/user/register";
 
             // String Request Object
             StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -181,5 +182,4 @@ public class SignupActivity extends AppCompatActivity {
             };
             queue.add(stringRequest);
         }
-
     }

@@ -12,7 +12,6 @@ public class MuseumCatDomain implements Serializable {
     private String thirdTxt;
     private String fourthTxt;
     private String descriptionTxt;
-
     private String direction_btn;
 
     public MuseumCatDomain(String titleTxt, String picImg, String locationTxt, String ratingTxt, String firstTxt, String secondTxt, String thirdTxt, String fourthTxt, String descriptionTxt, String direction_btn) {

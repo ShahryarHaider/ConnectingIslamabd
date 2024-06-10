@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
 import com.example.connectingislamabad.Adapters.PopularAdapter;
@@ -19,115 +27,120 @@ import com.example.connectingislamabad.Domains.PopularDomain;
 import com.example.connectingislamabad.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
-
 public class PopularCatActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterPopular ;
+    private RecyclerView.Adapter adapterPopular;
     private RecyclerView recyclerViewPopular;
-
     private ImageView backBtn;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_cat);
 
-        initRecylerView();
-
-        // Initialize the back button
+        initRecyclerView();
         backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        backBtn.setOnClickListener(v -> onBackPressed());
 
-        // Navigation Bar Controller
         BottomNavigationView bottomNavigationView = findViewById(R.id.buttomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.category_bottom);
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.home_bottom) {
-                    // Handle navigation to home
-                    // You can start the HomeActivity or perform any other action
-                    return true;
-                } else if (item.getItemId() == R.id.category_bottom) {
-                    // Handle navigation to category
-                    // Start the CategoryActivity
-                    startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.transport_bottom) {
-                    // Handle navigation to transport
-                    // Start the TransportActivity
-                    startActivity(new Intent(getApplicationContext(), TransportActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else if (item.getItemId() == R.id.setting_bottom) {
-                    // Handle navigation to settings
-                    // Start the SettingsActivity
-                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                } else {
-                    return false;
-                }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.home_bottom) {
+                // Handle navigation to home
+                return true;
+            } else if (item.getItemId() == R.id.category_bottom) {
+                startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.transport_bottom) {
+                startActivity(new Intent(getApplicationContext(), TransportActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            } else if (item.getItemId() == R.id.setting_bottom) {
+                startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+                return true;
+            } else {
+                return false;
             }
         });
 
+        fetchPopularDomains();
+    }
+    private void initRecyclerView() {
+        recyclerViewPopular = findViewById(R.id.view_popular_cat);
+        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
-        private void initRecylerView() {
-            //Array List
-            ArrayList<PopularDomain> items = new ArrayList<>();
-            //Information
+    private void fetchPopularDomains() {
+        String url = "http://localhost:8080/api/v2/popular"; // Update with your endpoint
 
-            //Item1
-            items.add(new PopularDomain("Faisal Mosuque","Islamabad",
-                    "The Faisal Mosque (Urdu: فیصل مسجد, romanized: faisal masjid) is the national mosque of Pakistan," +
-                            " located in the capital city, Islamabad." +
-                            " It is the fifth-largest mosque in the world, the largest mosque outside the Middle East," +
-                            " and the largest within South Asia, located on the foothills of Margalla Hills in Islamabad",
-                    true,4.9,"pop2",false,0));
+        //RequestQueue queue = Volley.newRequestQueue(PopularCatActivity.this);
 
-            //Item2
-            items.add(new PopularDomain("Pakistan Monument Museum","Western Shakarparian ",
-                    " The Pakistan Monument is a national monument and heritage museum located on" +
-                            " the western Shakarparian Hills in Islamabad, Pakistan. Constructed to symbolize the unity of" +
-                            " the Pakistani people, it is dedicated to those who sacrificed their “today” for a better" +
-                            " “tomorrow.” The monument features four large petals representing each of the four main"+
-                            " cultures of Pakistan: Punjabi, Baloch, Sindhi, and Pakhtun. Additionally, three smaller petals"+
-                            " represent minorities, Azad Kashmir, and Gilgit-Baltistan",
-                    true,4.7,"pop1",true,0));
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response ->
+        {
+            try {
+                System.out.println(response);
+                JSONArray jsonArray = new JSONArray(response);
 
-            //Item3
-            items.add(new PopularDomain("Daman e Koh","Margala Hills",
-                    "The Daman-e-Koh is a renowned hilltop picnic spot situated in Islamabad, Pakistan. It is" +
-                            " in the Margalla Hills, providing visitors with awe-inspiring views of the capital city. The name" +
-                            " originates from Persian, where “daman” translates to “skirt” and “koh” signifies “hill” 1. This" +
-                            " picturesque location is approximately 2400 feet above sea level and about 500 feet above"+
-                            " Islamabad. From Daman-e-Koh, you can have a bird’s-eye view of Islamabad, including"+
-                            " landmarks like Faisal Mosque, Seventh Avenue, and Rawal Lake.",
-                    false,4.9,"pop3",false,0));
+                ArrayList<PopularDomain> popularDomains = new ArrayList<>();
 
-            //Calling Popular View
-            recyclerViewPopular=findViewById(R.id.view_popular_cat);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    long id = obj.getInt("id");
+                    String title = obj.getString("title");
+                    String location = obj.getString("location");
+                    String description = obj.getString("description");
+                    boolean guide = obj.getBoolean("guide");
+                    double rating = obj.getDouble("rating");
+                    String pic = obj.getString("pic");
+                    boolean wifi = obj.getBoolean("wifi");
+                    int price = obj.getInt("price");
 
-            //Representing the layout style of Popular Categories
-            recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            adapterPopular=new PopularAdapter(items);
-            recyclerViewPopular.setAdapter(adapterPopular);
+                    // Log the data for debugging purposes
+                    Log.d("PopularCatActivity", "Title: " + title);
+                    Log.d("PopularCatActivity", "Location: " + location);
+                    Log.d("PopularCatActivity", "Description: " + description);
+                    Log.d("PopularCatActivity", "Guide: " + guide);
+                    Log.d("PopularCatActivity", "Rating: " + rating);
+                    Log.d("PopularCatActivity", "Pic: " + pic);
+                    Log.d("PopularCatActivity", "Wifi: " + wifi);
+                    Log.d("PopularCatActivity", "Price: " + price);
 
+                    PopularDomain popularDomain = new PopularDomain(
+                            id,
+                            title,
+                            location,
+                            description,
+                            guide,
+                            rating,
+                            pic,
+                            wifi,
+                            price
+                    );
+                    popularDomains.add(popularDomain);
+                    System.out.println(popularDomain);
+                }
 
+                adapterPopular = new PopularAdapter(popularDomains);
+                recyclerViewPopular.setAdapter(adapterPopular);
+            } catch (JSONException e) {
+                Log.e("PopularCatActivity", "JSON parsing error", e);
+                Toast.makeText(PopularCatActivity.this, "Error parsing data", Toast.LENGTH_SHORT).show();
+            }
+        }, error -> {
+            Log.e("PopularCatActivity", "Error fetching popular domains", error);
+            Toast.makeText(PopularCatActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+        });
+
+        //queue.add(stringRequest);
     }
 }

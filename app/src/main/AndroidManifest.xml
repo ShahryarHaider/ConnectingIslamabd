@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -17,12 +19,23 @@
         android:theme="@style/Theme.ConnectingIslamabad"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBZZ5XwQ8l5lmzdophWP9N-lN3uHI7Caj0" />
+
+        <activity
+            android:name=".MapFragment"
+            android:exported="false" />
+        <activity
+            android:name=".RatingActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".Activities.Profile.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.DbTest.TestDB"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.Authentication.SignIn.SigninActivity"
             android:exported="false" />
@@ -34,7 +47,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Activities.Category.MustvisitCatActivity"
@@ -80,8 +92,7 @@
             android:exported="false" />
         <activity
             android:name=".Activities.Main.DetailActivity"
-            android:exported="false" />
-        <!-- 1st Screen -->
+            android:exported="false" /> <!-- 1st Screen -->
         <activity
             android:name=".Activities.IntroActivity"
             android:exported="true">

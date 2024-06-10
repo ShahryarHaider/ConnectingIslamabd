@@ -2,6 +2,7 @@ package com.example.connectingislamabad.Activities.Category.Detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,22 +12,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.connectingislamabad.Activities.Profile.EditProfileActivity;
+import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Domains.MuseumCatDomain;
 import com.example.connectingislamabad.R;
+import com.example.connectingislamabad.RatingActivity;
 
 public class DetailMustvisitCatActivity extends AppCompatActivity {
 
     private TextView titleTxt,ratingTxt, locationTxt, firstTxt, secondTxt, thirdTxt, fourthTxt, descriptionTxt;
     private ImageView picImg, backBtn;
 
-    private Button directionBtn;
+    private Button directionBtn, ratingBtn;
     private MuseumCatDomain item;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_mustvisit_cat);
         initView();
         setVariable();
+
+
+        ratingBtn = findViewById(R.id.ratingBtn);
+
+        ratingBtn.setOnClickListener(v -> {
+            // Start RatingActivity
+            startActivity(new Intent(DetailMustvisitCatActivity.this, RatingActivity.class));
+        });
+
     }
 
     private void setVariable() {

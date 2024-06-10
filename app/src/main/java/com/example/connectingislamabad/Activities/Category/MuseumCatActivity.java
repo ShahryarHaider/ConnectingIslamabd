@@ -92,6 +92,7 @@ public class MuseumCatActivity extends AppCompatActivity {
                 "Description: The Islamabad Museum, also known as the Pakistan Monument Museum, is a window into the soul of the city. It captures the essence of Islamabad’s development, its people, and its vision for the future. The museum features models, photographs, and exhibits that showcase the capital’s master plan and its role in the modern world1.\n" +
                         "Famous For: Depicting the history of Islamabad, from ancient times to the present day",
                 "https://maps.app.goo.gl/X7SeBZUW9XG2W62M8\n"));
+
         museumcatList.add(new MuseumCatDomain("Supreme Court Museum","museum_supreme","ISB","4.5","Top Rated","Shopping","Top Place","F9",
                 "Description: The Supreme Court Museum serves as an invaluable repository, preserving the judicial history of both pre- and post-Independence eras. It houses fine arts, oral histories, photographs, personal belongings of Honorable Judges and Chief Justices, and an archival collection of rare documents2.\n" +
                         "Famous For: Showcasing the evolution of the judiciary in Pakistan.",
