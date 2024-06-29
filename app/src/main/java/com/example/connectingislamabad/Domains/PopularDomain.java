@@ -8,7 +8,6 @@ import java.util.List;
 
 public class PopularDomain implements Serializable {
 
-    private long id;
     private String title;
     private String location;
     private String description;
@@ -19,8 +18,19 @@ public class PopularDomain implements Serializable {
     private boolean wifi;
     private int price;
 
-    public PopularDomain(long id, String title, String location, String description, boolean guide, double rating, String pic, boolean wifi, int price) {
-        this.id = id;
+    private String collection_name;
+
+    private String document_name;
+
+    private double latitude;
+
+    private double longitude;
+
+    private String direction_btn;
+
+
+    public PopularDomain( String title, String location, String description, boolean guide, double rating, String pic, boolean wifi, int price, String collection_name, String document_name, double latitude, double longitude, String direction_btn) {
+
         this.title = title;
         this.location = location;
         this.description = description;
@@ -29,18 +39,55 @@ public class PopularDomain implements Serializable {
         this.pic = pic;
         this.wifi = wifi;
         this.price = price;
+        this.collection_name = collection_name;
+        this.document_name = document_name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.direction_btn = direction_btn;
     }
 
-    // Getters and setters for existing fields
 
 
-    public long getId() {
-        return id;
+    public String getCollection_name() {
+        return collection_name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
     }
+
+    public String getDocument_name() {
+        return document_name;
+    }
+
+    public void setDocument_name(String document_name) {
+        this.document_name = document_name;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getDirection_btn() {
+        return direction_btn;
+    }
+
+    public void setDirection_btn(String direction_btn) {
+        this.direction_btn = direction_btn;
+    }
+
     public String getTitle() {
         return title;
     }

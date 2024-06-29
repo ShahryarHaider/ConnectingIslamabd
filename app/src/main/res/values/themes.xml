@@ -17,5 +17,6 @@
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
     </style>
+
     <style name="Theme.ConnectingIslamabad" parent="Base.Theme.ConnectingIslamabad" />
 </resources>

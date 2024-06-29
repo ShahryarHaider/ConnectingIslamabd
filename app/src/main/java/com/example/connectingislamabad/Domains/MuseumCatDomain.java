@@ -14,7 +14,14 @@ public class MuseumCatDomain implements Serializable {
     private String descriptionTxt;
     private String direction_btn;
 
-    public MuseumCatDomain(String titleTxt, String picImg, String locationTxt, String ratingTxt, String firstTxt, String secondTxt, String thirdTxt, String fourthTxt, String descriptionTxt, String direction_btn) {
+    private String collection_name;
+    private String document_name;
+
+    // For Maps
+    private double latitude;
+    private double longitude;
+
+    public MuseumCatDomain(String titleTxt, String picImg, String locationTxt, String ratingTxt, String firstTxt, String secondTxt, String thirdTxt, String fourthTxt, String descriptionTxt, String direction_btn  ,double latitude, double longitude, String document_name, String collection_name) {
         this.titleTxt = titleTxt;
         this.picImg = picImg;
         this.locationTxt = locationTxt;
@@ -25,6 +32,26 @@ public class MuseumCatDomain implements Serializable {
         this.fourthTxt = fourthTxt;
         this.descriptionTxt = descriptionTxt;
         this.direction_btn = direction_btn;
+        this.document_name = document_name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.collection_name = collection_name;
+    }
+
+    public String getCollection_name() {
+        return collection_name;
+    }
+
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
+    }
+
+    public String getDocument_name() {
+        return document_name;
+    }
+
+    public void setDocument_name(String document_name) {
+        this.document_name = document_name;
     }
 
     public String getTitleTxt() {
@@ -105,5 +132,21 @@ public class MuseumCatDomain implements Serializable {
 
     public void setDirection_btn(String direction_btn) {
         this.direction_btn = direction_btn;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

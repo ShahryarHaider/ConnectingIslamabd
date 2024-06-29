@@ -92,24 +92,64 @@
             android:padding="15dp"
             android:drawablePadding="10dp"
             android:hint="Password"
+            android:inputType="textPassword"
             android:textColorHint="@color/black"
             android:background="@drawable/stoke_background"
             android:drawableRight="@drawable/password_icon"/>
+
+
+
+        <TextView
+            android:id="@+id/forgetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordForm"
+            android:layout_alignEnd="@+id/passwordForm"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="20dp"
+            android:text="Forget Password"
+            android:textColor="@color/blue"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signinButton"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_below="@+id/passwordForm"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/forgetPass"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:padding="15dp"
             android:background="@drawable/background_orange"
             android:hint="Sign In"
+            android:padding="15dp"
             android:textColorHint="@color/white"
-            android:textStyle="bold"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signinButton"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/signUpClick"
+            android:text="Don't have an account yet?  " />
+
+        <TextView
+            android:id="@+id/signUpClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signinButton"
+            android:layout_alignEnd="@+id/passwordForm"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="20dp"
+            android:text="Sign Up"
+            android:textColor="@color/blue"
+            />
 
 
     </RelativeLayout>

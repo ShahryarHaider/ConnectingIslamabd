@@ -18,25 +18,36 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
+import com.example.connectingislamabad.Adapters.FoodCatAdapter;
+import com.example.connectingislamabad.Adapters.MuseumCatAdapter;
 import com.example.connectingislamabad.Adapters.PopularAdapter;
+import com.example.connectingislamabad.Domains.FoodCatDomain;
+import com.example.connectingislamabad.Domains.MuseumCatDomain;
 import com.example.connectingislamabad.Domains.PopularDomain;
 import com.example.connectingislamabad.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PopularCatActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapterPopular;
     private RecyclerView recyclerViewPopular;
     private ImageView backBtn;
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,75 +83,131 @@ public class PopularCatActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        fetchPopularDomains();
     }
+
     private void initRecyclerView() {
-        recyclerViewPopular = findViewById(R.id.view_popular_cat);
-        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-    }
 
-    private void fetchPopularDomains() {
-        String url = "http://localhost:8080/api/v2/popular"; // Update with your endpoint
+        db = FirebaseFirestore.getInstance();
 
-        //RequestQueue queue = Volley.newRequestQueue(PopularCatActivity.this);
+        db.collection("popular").document("1Data").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response ->
-        {
-            try {
-                System.out.println(response);
-                JSONArray jsonArray = new JSONArray(response);
+                    ArrayList<PopularDomain> popularList = new ArrayList<>();
 
-                ArrayList<PopularDomain> popularDomains = new ArrayList<>();
+                    // Fetch total reviews count from counter field
+                    Map<String, Object> data = document.getData();
+                    List<Map<String, Object>> allData = new ArrayList<>();
 
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    long id = obj.getInt("id");
-                    String title = obj.getString("title");
-                    String location = obj.getString("location");
-                    String description = obj.getString("description");
-                    boolean guide = obj.getBoolean("guide");
-                    double rating = obj.getDouble("rating");
-                    String pic = obj.getString("pic");
-                    boolean wifi = obj.getBoolean("wifi");
-                    int price = obj.getInt("price");
+                    Map<String, Object> damnekoh = (Map<String, Object>) data.get("damnekoh");
+                    Map<String, Object> faisalMasjid = (Map<String, Object>) data.get("faisalMasjid");
+                    Map<String, Object> monument = (Map<String, Object>) data.get("monument");
 
-                    // Log the data for debugging purposes
-                    Log.d("PopularCatActivity", "Title: " + title);
-                    Log.d("PopularCatActivity", "Location: " + location);
-                    Log.d("PopularCatActivity", "Description: " + description);
-                    Log.d("PopularCatActivity", "Guide: " + guide);
-                    Log.d("PopularCatActivity", "Rating: " + rating);
-                    Log.d("PopularCatActivity", "Pic: " + pic);
-                    Log.d("PopularCatActivity", "Wifi: " + wifi);
-                    Log.d("PopularCatActivity", "Price: " + price);
+                    allData.add(damnekoh);
+                    allData.add(faisalMasjid);
+                    allData.add(monument);
 
-                    PopularDomain popularDomain = new PopularDomain(
-                            id,
-                            title,
-                            location,
-                            description,
-                            guide,
-                            rating,
-                            pic,
-                            wifi,
-                            price
-                    );
-                    popularDomains.add(popularDomain);
-                    System.out.println(popularDomain);
+                    for(int i = 0; i < allData.size(); i++)
+                    {
+                        String title = (String) allData.get(i).get("title");
+                        String location = (String) allData.get(i).get("location");
+                        String description = (String) allData.get(i).get("description");
+                        boolean guide = (boolean) allData.get(i).get("guide");
+                        String pic = (String) allData.get(i).get("pic");
+                        boolean wifi = (boolean) allData.get(i).get("wifi");
+                        Object priceObj = allData.get(i).get("price");
+                        String collection_name = (String) allData.get(i).get("collection_name");
+                        String document_name = (String) allData.get(i).get("document_name");
+                        Object latitudeObj = allData.get(i).get("latitude");
+                        Object longitudeObj = allData.get(i).get("longitude");
+                        Object ratingObj = allData.get(i).get("rating");
+                        String direction_btn = (String) allData.get(i).get("direction_btn");
+
+                        double latitude = 0.0;
+                        double longitude = 0.0;
+                        double rating = 0.0;
+                        int price = 0;
+
+                        if (latitudeObj instanceof Long) {
+                            latitude = ((Long) latitudeObj).doubleValue();
+                        } else if (latitudeObj instanceof Double) {
+                            latitude = (Double) latitudeObj;
+                        }
+
+                        if (longitudeObj instanceof Long) {
+                            longitude = ((Long) longitudeObj).doubleValue();
+                        } else if (longitudeObj instanceof Double) {
+                            longitude = (Double) longitudeObj;
+                        }
+
+                        if (ratingObj instanceof Long) {
+                            rating = ((Long) ratingObj).doubleValue();
+                        } else if (ratingObj instanceof Double) {
+                            rating = (Double) ratingObj;
+                        }
+
+                        if (priceObj instanceof Long) {
+                            price = ((Long) priceObj).intValue();
+                        } else if (priceObj instanceof Integer) {
+                            price = (Integer) priceObj;
+                        } else if (priceObj instanceof String) {
+                            try {
+                                price = Integer.parseInt((String) priceObj);
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        popularList.add(new PopularDomain(title,
+                                location, description, guide,
+                                rating, pic, wifi,
+                                price,
+                                collection_name, document_name, latitude, longitude, direction_btn));
+                    }
+
+                    recyclerViewPopular = findViewById(R.id.view_popular_cat);
+                    recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+                    adapterPopular = new PopularAdapter(popularList);
+                    recyclerViewPopular.setAdapter(adapterPopular);
+
+                } else {
+                    Log.d("Rating", "No such document");
                 }
-
-                adapterPopular = new PopularAdapter(popularDomains);
-                recyclerViewPopular.setAdapter(adapterPopular);
-            } catch (JSONException e) {
-                Log.e("PopularCatActivity", "JSON parsing error", e);
-                Toast.makeText(PopularCatActivity.this, "Error parsing data", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d("Rating", "get failed with ", task.getException());
             }
-        }, error -> {
-            Log.e("PopularCatActivity", "Error fetching popular domains", error);
-            Toast.makeText(PopularCatActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
         });
 
-        //queue.add(stringRequest);
+
+//        ArrayList<PopularDomain> popularList = new ArrayList<>();
+//
+//        //Add Data Into FoodCat Related
+//
+//        popularList.add(new PopularDomain("Faisal Mosque",
+//                "Islamabad, Pakistan", "A beautiful mosque with a unique architecture", true,
+//                4.8, "pop2", true,
+//                0,
+//                "popular", "faisalMasjid", 33.743643, 72.937898, "https://maps.app.goo.gl/ct9uZpAERzdde6PDA"));
+//
+//        popularList.add(new PopularDomain("Pakistan Monument",
+//                "Islamabad, Pakistan", "A national monument representing the country's four provinces", true,
+//                4.7, "pop1", true,
+//                0,
+//                "popular", "monument", 33.693557, 72.935701, "https://maps.app.goo.gl/iJiJvsBFZ39igS2CA"));
+//
+//        popularList.add(new PopularDomain("Daman-e-Koh",
+//                "Islamabad, Pakistan", "A viewpoint with a stunning view of the city", true,
+//                4.6, "pop3", true,
+//                0,
+//                "popular", "damnekoh", 33.702379, 72.947449, "https://maps.app.goo.gl/uHJGUgF19adJEqRb8"));
+//
+//
+//        recyclerViewPopular = findViewById(R.id.view_popular_cat);
+//        recyclerViewPopular.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//
+//        adapterPopular = new PopularAdapter(popularList);
+//        recyclerViewPopular.setAdapter(adapterPopular);
     }
 }

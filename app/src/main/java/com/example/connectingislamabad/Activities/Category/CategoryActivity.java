@@ -73,7 +73,7 @@ public class CategoryActivity extends AppCompatActivity {
         mustvisit_Category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CategoryActivity.this,MustvisitCatActivity.class));
+                startActivity(new Intent(CategoryActivity.this, MustvisitCatActivity.class));
             }
         });
 

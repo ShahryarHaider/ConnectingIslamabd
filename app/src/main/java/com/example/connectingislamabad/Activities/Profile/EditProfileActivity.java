@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,16 +22,29 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
 import com.example.connectingislamabad.Activities.Main.MainActivity;
+import com.example.connectingislamabad.Activities.Setting.SettingActivity;
 import com.example.connectingislamabad.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+
+    private FirebaseFirestore db;
+
     private EditText newNameEt, newEmailEt, newPasswordEt;
-    private Button updateButton;
+    private Button updateButton, changePass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +52,83 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         newNameEt = findViewById(R.id.newName);
-        newEmailEt = findViewById(R.id.newEmail);
-        newPasswordEt = findViewById(R.id.newPassword);
         updateButton = findViewById(R.id.updateBtn);
+        changePass = findViewById(R.id.changePass);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        db.collection("users").document(userId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String userName = document.getString("name");
+
+                    if (userName != null) {
+                        newNameEt.setText(userName);
+                    }
+                } else {
+                    Log.d("MainActivity", "No such document");
+                }
+            } else {
+                Log.d("MainActivity", "get failed with ", task.getException());
+            }
+        });
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String newNameText = newNameEt.getText().toString();
                 if (validateForm()) {
-                    updateUserProfile();
+                    updateUserName(userId, newNameText);
                 }
+            }
+        });
+
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this, ChangePassword.class);
+                startActivity(intent);
             }
         });
     }
 
+    private void updateUserName(String userId, String newName) {
+        // Reference to the user's document in Firestore
+        DocumentReference userDocRef = db.collection("users").document(userId);
+
+        // Update the name field
+        userDocRef.update("name", newName)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("MainActivity", "User name updated successfully.");
+                        Toast.makeText(EditProfileActivity.this, "Name updated successfully!", Toast.LENGTH_SHORT).show();
+                        newNameEt.setText(newName);
+                        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("MainActivity", "Error updating user name", e);
+                        Toast.makeText(EditProfileActivity.this, "Failed to update name: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+
+
     // Form validation
     private boolean validateForm() {
         String name = newNameEt.getText().toString().trim();
-        String email = newEmailEt.getText().toString().trim();
-        String password = newPasswordEt.getText().toString().trim();
 
         if (name.isEmpty()) {
             newNameEt.setError("Name is required");
@@ -69,29 +142,6 @@ public class EditProfileActivity extends AppCompatActivity {
             return false;
         }
 
-        if (email.isEmpty()) {
-            newEmailEt.setError("Email is required");
-            newEmailEt.requestFocus();
-            return false;
-        }
-
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            newEmailEt.setError("Please enter a valid email");
-            newEmailEt.requestFocus();
-            return false;
-        }
-
-        if (password.isEmpty()) {
-            newPasswordEt.setError("Password is required");
-            newPasswordEt.requestFocus();
-            return false;
-        }
-
-        if (password.length() < 6) {
-            newPasswordEt.setError("Password should be at least 6 characters long");
-            newPasswordEt.requestFocus();
-            return false;
-        }
 
         return true;
     }
@@ -114,7 +164,6 @@ public class EditProfileActivity extends AppCompatActivity {
                     Toast.makeText(EditProfileActivity.this, "Profile updated", Toast.LENGTH_SHORT).show();
 
                     // Update shared preferences if necessary
-                    SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("name", newNameEt.getText().toString().trim());
                     editor.putString("email", newEmailEt.getText().toString().trim());

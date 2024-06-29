@@ -15,73 +15,77 @@ import com.example.connectingislamabad.Activities.Category.Detail.DetailFoodCatA
 import com.example.connectingislamabad.Domains.FoodCatDomain;
 import com.example.connectingislamabad.R;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FoodCatAdapter extends RecyclerView.Adapter<FoodCatAdapter.ViewHolder> {
 
-    ArrayList<FoodCatDomain> items;
-
+    private ArrayList<FoodCatDomain> items;
+    private ArrayList<FoodCatDomain> itemsFull; // Copy of the original list for filtering
 
     public FoodCatAdapter(ArrayList<FoodCatDomain> items) {
         this.items = items;
+        this.itemsFull = new ArrayList<>(items); // Make a copy of the original list
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the layout for a single item in the RecyclerView
-        View Inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_subcategory, parent, false);
-
-        // Create a new ViewHolder object using the inflated view
-        return new ViewHolder(Inflate);
+        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_subcategory, parent, false);
+        return new ViewHolder(inflate);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        //Holder of text data only
         holder.titleTxt.setText(items.get(position).getTitleTxt());
 
         int drawableResId = holder.itemView.getResources().getIdentifier(items.get(position).getPicImg(),
                 "drawable", holder.itemView.getContext().getPackageName());
 
-        //Glide Holder
         Glide.with(holder.itemView.getContext())
                 .load(drawableResId)
                 .into(holder.picImg);
 
-        //Fetch Info For DetailFoodActivity Class
-        holder.itemView.setOnClickListener(v ->{
-            {
-                Intent intent = new Intent (holder.itemView.getContext(), DetailFoodCatActivity.class);
-                intent.putExtra("object", (Serializable) items.get(position));
-                holder.itemView.getContext().startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), DetailFoodCatActivity.class);
+            intent.putExtra("object", (Serializable) items.get(position));
+            holder.itemView.getContext().startActivity(intent);
         });
     }
 
-    //Count the Number in the RecyclerView
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-    //ViewHolder For RecyclerView
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void filter(String text) {
+        items.clear();
+        if (text.isEmpty()) {
+            items.addAll(itemsFull);
+        } else {
+            text = text.toLowerCase();
+            for (FoodCatDomain item : itemsFull) {
+                String finalText = text;
+                if (item.getTitleTxt().toLowerCase().contains(text) ||
+                        item.getTypeTxt().toLowerCase().contains(text) ||
+                        item.getType().stream().anyMatch(type -> type.toLowerCase().contains(finalText))) {
+                    items.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
 
-        //contains Data that is visible on the Foood 1st Display / RecyclerView
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTxt;
         ImageView picImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            titleTxt=itemView.findViewById(R.id.titleTxt);
-            picImg=itemView.findViewById(R.id.picImg);
+            titleTxt = itemView.findViewById(R.id.titleTxt);
+            picImg = itemView.findViewById(R.id.picImg);
         }
     }
 }
-
-

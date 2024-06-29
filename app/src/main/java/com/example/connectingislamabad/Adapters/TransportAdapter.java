@@ -20,21 +20,28 @@ import com.example.connectingislamabad.Activities.Main.DetailActivity;
 import com.example.connectingislamabad.Activities.Transport.DetailActivityTransport;
 import com.example.connectingislamabad.Activities.Transport.TransportActivity;
 import com.example.connectingislamabad.Domains.CategoryDomain;
+import com.example.connectingislamabad.Domains.FoodCatDomain;
 import com.example.connectingislamabad.Domains.TransportDomain;
 import com.example.connectingislamabad.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.ViewHolder>{
 
     //Arraylist TransportDomain
     ArrayList<TransportDomain> items;
 
+    ArrayList<TransportDomain> itemsFull;
+
 
     //Constructor
     public TransportAdapter(ArrayList <TransportDomain> items) {
+
         this.items = items;
+        this.itemsFull = new ArrayList<>(items);
     }
 
     @NonNull
@@ -73,6 +80,31 @@ public class TransportAdapter extends RecyclerView.Adapter<TransportAdapter.View
     public int getItemCount() {
         return items.size();
     }
+
+    public void filter(String text) {
+        items.clear();
+        if (text.isEmpty()) {
+            items.addAll(itemsFull);
+        } else {
+            text = text.toLowerCase();
+            for (TransportDomain item : itemsFull) {
+                // Split the descriptionTxt into individual routes
+                List<String> routesList = Arrays.asList(item.getDescTxt().split(", "));
+
+                // Check if any route in routesList contains the search text
+                String finalText = text;
+                if(routesList.stream()
+                        .anyMatch(route -> route.toLowerCase().contains(finalText))){
+                    items.add(item);
+                }
+
+
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
 
     //ViewHolder for Tranport 1st Category :)
     public static class ViewHolder extends RecyclerView.ViewHolder {

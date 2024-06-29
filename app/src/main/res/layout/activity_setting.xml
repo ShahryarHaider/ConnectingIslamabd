@@ -48,7 +48,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name: John Doe"
+                android:text="Fetching.."
                 android:textSize="16sp"
                 android:textColor="@color/black50"
                 android:layout_marginBottom="4dp"/>
@@ -58,7 +58,7 @@
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email: john.doe@example.com"
+                android:text="Fetching.."
                 android:textSize="16sp"
                 android:textColor="@color/black50"
                 android:layout_marginBottom="4dp"/>
@@ -79,6 +79,15 @@
             android:text="Enable Notifications"
             android:textSize="16sp"
             android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/feedback_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_purple"
+            android:text="Feedback "
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"/>
 
         <Button
             android:id="@+id/signout_button"

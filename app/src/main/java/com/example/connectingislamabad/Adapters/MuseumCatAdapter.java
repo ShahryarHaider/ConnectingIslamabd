@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionBarPolicy;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +16,10 @@ import com.example.connectingislamabad.Activities.Category.Detail.DetailFoodCatA
 import com.example.connectingislamabad.Activities.Category.Detail.DetailMuseumCatActivity;
 import com.example.connectingislamabad.Domains.MuseumCatDomain;
 import com.example.connectingislamabad.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,9 +27,11 @@ import java.util.ArrayList;
 public class MuseumCatAdapter extends RecyclerView.Adapter<MuseumCatAdapter.ViewHolder> {
 
     ArrayList<MuseumCatDomain> items;
+    private GoogleMap mMap;
 
-    public MuseumCatAdapter(ArrayList<MuseumCatDomain> items) {
+    public MuseumCatAdapter(ArrayList<MuseumCatDomain> items, GoogleMap mMap) {
         this.items = items;
+        this.mMap = mMap;
     }
 
     @NonNull
@@ -59,20 +66,30 @@ public class MuseumCatAdapter extends RecyclerView.Adapter<MuseumCatAdapter.View
             }
         });
 
+//        MuseumCatDomain item = items.get(position);
+//
+//        LatLng location = new LatLng(item.getLatitude(), item.getLongitude());
+//        mMap.addMarker(new MarkerOptions().position(location).title(item.getTitleTxt()));
+
+//        holder.itemView.setOnClickListener(v -> {
+//            // Update camera position when item is clicked
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+//        });
     }
 
+    // COUNT THE SIZE OF DATA IN RECYCLER VIEW
     @Override
     public int getItemCount() {
         return items.size();
     }
 
+    // THUMBNIL OF RECYCLER VIEW
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTxt;
         ImageView picImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             titleTxt=itemView.findViewById(R.id.titleTxt);
             picImg=itemView.findViewById(R.id.picImg);
         }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Switch;
@@ -15,16 +16,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
 import com.example.connectingislamabad.Activities.Category.CategoryActivity;
+import com.example.connectingislamabad.Activities.Form.FeedbackActivity;
 import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.Activities.Profile.EditProfileActivity;
 import com.example.connectingislamabad.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SettingActivity extends AppCompatActivity {
 
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseFirestore db;
     private Switch notificationSwitch;
     private Button signoutButton;
-    private Button editProfileButton;
+    private Button editProfileButton, feedback_button;
     private TextView o_name, o_email;
 
     @Override
@@ -32,9 +42,13 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         notificationSwitch = findViewById(R.id.notification_switch);
         signoutButton = findViewById(R.id.signout_button);
         editProfileButton = findViewById(R.id.edit_profile_button);
+        feedback_button = findViewById(R.id.feedback_button);
 
         // Set click listeners
         editProfileButton.setOnClickListener(v -> {
@@ -42,15 +56,42 @@ public class SettingActivity extends AppCompatActivity {
             startActivity(new Intent(SettingActivity.this, EditProfileActivity.class));
         });
 
+        feedback_button.setOnClickListener(v -> {
+            // Start EditProfileActivity
+            startActivity(new Intent(SettingActivity.this, FeedbackActivity.class));
+        });
+
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("name", "User");
         String email = sharedPreferences.getString("email", "user@example.com");
 
+
         o_name = findViewById(R.id.name);
         o_email = findViewById(R.id.email);
 
-        o_name.setText(name);
-        o_email.setText(email);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String userId = currentUser.getUid();
+        db.collection("users").document(userId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    String userName = document.getString("name");
+                    String userEmail = document.getString("email");
+
+                    if (userEmail != null) {
+                        o_email.setText(userEmail);
+                    }
+                    if (userName != null) {
+                        o_name.setText(userName);
+                    }
+                } else {
+                    Log.d("MainActivity", "No such document");
+                }
+            } else {
+                Log.d("MainActivity", "get failed with ", task.getException());
+            }
+        });
 
         boolean isNotificationsEnabled = loadNotificationPreference();
         notificationSwitch.setChecked(isNotificationsEnabled);
@@ -61,16 +102,14 @@ public class SettingActivity extends AppCompatActivity {
         });
 
         signoutButton.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.apply();
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.clear();
+//            editor.apply();
+            signOut();
 
-            Toast.makeText(SettingActivity.this, "Signed Out", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(SettingActivity.this, SigninActivity.class);
-            startActivity(intent);
-            finish();
         });
+
+
 
 
 
@@ -112,6 +151,15 @@ public class SettingActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void signOut() {
+        // Sign out the user
+        mAuth.signOut();
+        // Redirect to SignInActivity
+        Intent intent = new Intent(SettingActivity.this, SigninActivity.class);
+        startActivity(intent);
+        finish(); // Prevent the user from returning to this activity
     }
 
     private boolean loadNotificationPreference() {

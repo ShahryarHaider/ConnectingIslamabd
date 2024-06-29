@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +18,20 @@
         android:theme="@style/Theme.ConnectingIslamabad"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activities.Profile.ChangePassword"
+            android:exported="false" />
+        <activity
+            android:name=".test"
+            android:exported="false"
+            android:label="@string/title_activity_test"
+            android:theme="@style/Theme.ConnectingIslamabad" />
+        <activity
+            android:name=".Activities.Form.FeedbackActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ReviewTest.ReviewActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -29,25 +42,19 @@
             android:exported="false" />
         <activity
             android:name=".RatingActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Activities.Profile.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.DbTest.TestDB"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Activities.Authentication.SignIn.SigninActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Authentication.SignUp.SignupActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Activities.Category.MustvisitCatActivity"
             android:exported="false" />
@@ -96,16 +103,17 @@
         <activity
             android:name=".Activities.IntroActivity"
             android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".Activities.Main.MainActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".Activities.Main.MainActivity"
+            android:exported="true">
+
         </activity>
     </application>
 

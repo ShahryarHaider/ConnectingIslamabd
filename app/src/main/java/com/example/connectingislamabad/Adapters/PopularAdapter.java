@@ -25,7 +25,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
 
     public PopularAdapter(List<PopularDomain> popularDomains) {
         this.popularDomains = popularDomains;
-        this.context = context;
     }
 
     @NonNull
@@ -40,15 +39,16 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
         PopularDomain popularDomain = popularDomains.get(position);
         holder.title.setText(popularDomain.getTitle());
         holder.location.setText(popularDomain.getLocation());
-        holder.rating.setText(String.valueOf(popularDomain.getRating()));
+        //holder.rating.setText(String.valueOf(popularDomain.getRating()));
 
-        int drawableResId = context.getResources().getIdentifier(popularDomain.getPic(), "drawable", context.getPackageName());
-        Glide.with(context).load(drawableResId).into(holder.pic);
+        int drawableResId = holder.itemView.getContext().getResources().getIdentifier(popularDomain.getPic(), "drawable", holder.itemView.getContext().getPackageName());
+        Glide.with(holder.itemView.getContext()).load(drawableResId).into(holder.pic);
 
+        // on click on thumbnail opens its contents
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailPopularCatActivity.class);
+            Intent intent = new Intent(holder.itemView.getContext(), DetailPopularCatActivity.class);
             intent.putExtra("object", popularDomain);
-            context.startActivity(intent);
+            holder.itemView.getContext().startActivity(intent);
         });
     }
 
@@ -65,7 +65,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.ViewHold
             super(itemView);
             title = itemView.findViewById(R.id.titleTxt);
             location = itemView.findViewById(R.id.locationTxt);
-            rating = itemView.findViewById(R.id.ratingTxt);
+            //rating = itemView.findViewById(R.id.ratingTxt);
             pic = itemView.findViewById(R.id.picImg);
         }
     }

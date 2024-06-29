@@ -32,45 +32,27 @@
             android:layout_marginRight="20dp"
             android:padding="15dp"
             android:drawablePadding="10dp"
-            android:hint="Name"
+            android:text="Fetching.."
             android:textColorHint="@color/black"
             android:background="@drawable/stoke_background"
             android:drawableRight="@drawable/person_icon"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/newEmail"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="15dp"
-            android:drawablePadding="10dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/black"
-            android:background="@drawable/stoke_background"
-            android:drawableRight="@drawable/mail_icon"/>
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/newPassword"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:padding="15dp"
-            android:drawablePadding="10dp"
-            android:hint="Password"
-            android:textColorHint="@color/black"
-            android:background="@drawable/stoke_background"
-            android:drawableRight="@drawable/mail_icon"/>
 
         <Button
             android:id="@+id/updateBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Update Profile"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/background_orange"/>
+
+        <Button
+            android:id="@+id/changePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

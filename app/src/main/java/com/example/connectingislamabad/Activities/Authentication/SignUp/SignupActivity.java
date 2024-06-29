@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,11 +26,21 @@ import com.android.volley.toolbox.Volley;
 import com.example.connectingislamabad.Activities.Authentication.SignIn.SigninActivity;
 import com.example.connectingislamabad.Activities.Main.MainActivity;
 import com.example.connectingislamabad.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseFirestore db;
 
     private EditText nameEt, emailEt, passwordEt, confirmpasswordEt;
     private TextView signInRedirect;
@@ -38,6 +50,9 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         signInRedirect = findViewById(R.id.signInRedirect);
 
@@ -52,7 +67,11 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateForm()) {
-                    processFormFields();
+                    String name = nameEt.getText().toString();
+                    String email = emailEt.getText().toString();
+                    String pass = passwordEt.getText().toString();
+                    signUp(name, email, pass);
+                    //processFormFields();
                 }
             }
         });
@@ -62,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignupActivity.this, SigninActivity.class);
                 startActivity(intent);
 
             }
@@ -127,59 +146,102 @@ public class SignupActivity extends AppCompatActivity {
         return true;
     }
 
+    private void signUp(String name, String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign up success
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            // Proceed with the user
+                            storeUserInfo(user.getUid(), name, user.getEmail());
+                        } else {
+                            // If sign up fails, display a message to the user.
+                            Log.w("SignUpActivity", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignupActivity.this, "Sign up failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void storeUserInfo(String userId, String name, String email) {
+        // Create a new user with name and email
+        Map<String, Object> user = new HashMap<>();
+        user.put("name", name);
+        user.put("email", email);
+
+        // Add a new document with a generated ID
+        db.collection("users").document(userId)
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignupActivity.this, "Sign up successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.w("SignUpActivity", "Error adding document", task.getException());
+                            Toast.makeText(SignupActivity.this, "Failed to store user info: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
     //Calling Local Ip to Insert Into Database
 
         // Request To Server
-        private void processFormFields() {
-            // Request To Server
-            RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
-
-            // URL to post at
-            String url = "http://192.168.10.31:8080/api/v2/user/register";
-
-            // String Request Object
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    if ("Email already exists".equals(response.trim())) {
-                        emailEt.setError("Email already exists");
-                        emailEt.requestFocus(); // Focus on the email field to prompt the user to fix the error
-                    } else if ("User Registered".equals(response.trim())) {
-                        // Handle successful registration here
-                        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("is_logged_in", true);
-                        editor.apply();
-
-                        // Clear form fields
-                        nameEt.setText(null);
-                        emailEt.setText(null);
-                        passwordEt.setText(null);
-
-                        Toast.makeText(SignupActivity.this, "Registration done", Toast.LENGTH_SHORT).show();
-
-                        // Redirect to MainActivity or any other desired activity
-                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(SignupActivity.this, "Unsuccessful: " + error.toString(), Toast.LENGTH_LONG).show();
-                }
-            }) {
-                @Nullable
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("name", nameEt.getText().toString().trim());
-                    params.put("email", emailEt.getText().toString().trim());
-                    params.put("password", passwordEt.getText().toString().trim());
-                    return params;
-                }
-            };
-            queue.add(stringRequest);
-        }
+//        private void processFormFields() {
+//            // Request To Server
+//            RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
+//
+//            // URL to post at
+//            String url = "http://192.168.10.31:8080/api/v2/user/register";
+//
+//            // String Request Object
+//            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    if ("Email already exists".equals(response.trim())) {
+//                        emailEt.setError("Email already exists");
+//                        emailEt.requestFocus(); // Focus on the email field to prompt the user to fix the error
+//                    } else if ("User Registered".equals(response.trim())) {
+//                        // Handle successful registration here
+//                        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putBoolean("is_logged_in", true);
+//                        editor.apply();
+//
+//                        // Clear form fields
+//                        nameEt.setText(null);
+//                        emailEt.setText(null);
+//                        passwordEt.setText(null);
+//
+//                        Toast.makeText(SignupActivity.this, "Registration done", Toast.LENGTH_SHORT).show();
+//
+//                        // Redirect to MainActivity or any other desired activity
+//                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    Toast.makeText(SignupActivity.this, "Unsuccessful: " + error.toString(), Toast.LENGTH_LONG).show();
+//                }
+//            }) {
+//                @Nullable
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String, String> params = new HashMap<>();
+//                    params.put("name", nameEt.getText().toString().trim());
+//                    params.put("email", emailEt.getText().toString().trim());
+//                    params.put("password", passwordEt.getText().toString().trim());
+//                    return params;
+//                }
+//            };
+//            queue.add(stringRequest);
+//        }
     }

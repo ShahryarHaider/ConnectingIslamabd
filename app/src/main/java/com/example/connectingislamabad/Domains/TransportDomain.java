@@ -9,11 +9,32 @@ public class TransportDomain implements Serializable {
     private String picImg;
     private String routeImg;
 
-    public TransportDomain(String titleTxt, String descTxt, String picImg, String routeImg) {
+    private String collection_name;
+    private String document_name;
+
+    public TransportDomain(String titleTxt, String descTxt, String picImg, String routeImg, String document_name, String collection_name) {
         this.titleTxt = titleTxt;
         this.descTxt =  descTxt;
         this.picImg =   picImg;
         this.routeImg = routeImg;
+        this.document_name = document_name;
+        this.collection_name = collection_name;
+    }
+
+    public String getCollection_name() {
+        return collection_name;
+    }
+
+    public void setCollection_name(String collection_name) {
+        this.collection_name = collection_name;
+    }
+
+    public String getDocument_name() {
+        return document_name;
+    }
+
+    public void setDocument_name(String document_name) {
+        this.document_name = document_name;
     }
 
     public String getTitleTxt() {
